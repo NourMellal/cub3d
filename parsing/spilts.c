@@ -1,0 +1,56 @@
+#include "header.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+char *ft_strncpy(char *s1, char *s2, int n)
+{
+	int i = -1;
+
+	while (++i < n && s2[i])
+		s1[i] = s2[i];
+	s1[i] = '\0';
+	return (s1);
+}
+int word_cout(char *str)
+{
+    int i =0;
+    int wc =0;
+	while (str[i])
+	{
+		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+			i++;
+		if (str[i])
+			wc++;
+		while (str[i] && (str[i] != ' ' && str[i] != '\t'))
+			i++;
+	}
+    return (wc);
+}
+char	**ft_split(char *str)
+{
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	int wc = 0;
+	
+
+	wc = word_cout(str);
+	char **out = (char **)malloc(sizeof(char *) * (wc + 1));
+    if (!out)
+		return (NULL);
+	while (str[i])
+	{
+		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+			i++;
+		j = i;
+		while (str[i] && (str[i] != ' ' && str[i] != '\t'))
+			i++;
+		if (i > j)
+		{
+			out[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
+			ft_strncpy(out[k++], &str[j], i - j);
+		}
+	}
+	out[k] = NULL;
+	return (out);
+}
