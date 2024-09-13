@@ -60,22 +60,28 @@ void steptwo()
     while(i < data()->lines)
     {
         if(isallspace(data()->file[i]))
-            {
-                free(data()->file[i]);
-                data()->file[i] = NULL;
-                i++;
-            }
+        {
+            free(data()->file[i]);
+            data()->file[i] = NULL;
+        }
         else
+            data()->maplines++;
+        i++;
+    }
+    i = 0;
+    while(i < data()->lines)
+    {
+       if(data()->file[i])
             {
                 j = checkmap(data()->file[i]);
                 if(j == 0)
                     exit(freeall(NULL));
                 else if (j == 1)
                     break;
-                else{free(data()->file[i]);
-                data()->file[i] = NULL;}
-                i++;
+                free(data()->file[i]);
+                data()->file[i] = NULL;
             }    
+                i++;
     }
 }
 int main(int ac, char **av)
@@ -87,15 +93,16 @@ int main(int ac, char **av)
     steptwo();
     for(int i = 0; i < 6; i++)
     {
-            printf("%p\n",data()->elemets[i]);
             printf("%s\n",data()->elemets[i]);
+           
             free(data()->elemets[i]);
     }
     printf("------------------------\n");
     for(int i = 0; i < data()->lines; i++)
     {
         if(data()->file[i])
-        printf("%s\n",data()->file[i]);
+            printf("%s\n",data()->file[i]);
     }
+    charsinmap();
     freeall(NULL);
 }

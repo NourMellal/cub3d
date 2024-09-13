@@ -49,19 +49,17 @@ int checkmap(char *line)
             exit(freeall(split)+printf("Error\nin map1\n"));
         charscheck(split[0],split);
         data()->elemets[index] = strdup(line);
-        printf("line %s,%d\n",line,index);
+    }       while(split[i])
+        {
+            free(split[i]);
+            i++;
+        }
+        free(split);
+        if(index == 6)
+        {
+            return 1;
+        }
         index++;
-    }
-    while(split[i])
-    {
-        free(split[i]);
-        i++;
-    }
-    free(split);
-    if(index == 6)
-    {
-        return 1;
-    }
     return 5;
 }
 

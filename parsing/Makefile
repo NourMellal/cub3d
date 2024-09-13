@@ -1,8 +1,8 @@
 Name=Cub3d
-SRC= main.c gnl.c spilts.c utilsparsing.c
+SRC= main.c gnl.c spilts.c utilsparsing.c charsinmap.c
 all: $(Name)
 $(Name) : $(SRC)
-	cc -Wall -Wextra -Werror -o $(Name) $(SRC)  -g3
+	cc -Wall -Wextra -Werror -o $(Name) $(SRC) -g3
 clean:
 
 fclean: 

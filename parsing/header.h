@@ -13,6 +13,7 @@ struct s_parse
     int lines;
     char *elemets[6];
     char **map;
+    int maplines;
 };
 typedef struct s_parse t_parse;
 char	**ft_split(char *str);
@@ -21,4 +22,5 @@ int isallspace(char *line);
 void initdata();
 int freeall(char **tofree);
 int checkmap(char *line);
+void charsinmap();
 #endif
