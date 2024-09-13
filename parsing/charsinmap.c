@@ -1,7 +1,24 @@
 #include "header.h"
 void sameelemet()
 {
+int i =6;
+int j =0;
+char **str;
+while(j < 6)
+{
+    str = ft_split(data()->elemets[j]);
+    if(str)
+    {
 
+        i--;
+    }
+    j++;
+}
+if(i > 6)
+{
+    printf("Error\nmissing element");
+    exit(freeall(NULL));
+}
 }
 void charsinmap()
 {
