@@ -8,15 +8,17 @@
 char *get_next_line(int fd);
 struct s_parse
 {
-    char **map;
+    char **file;
     int fd;
     int lines;
+    char *elemets[6];
+    char **map;
 };
 typedef struct s_parse t_parse;
 char	**ft_split(char *str);
 t_parse *data();
 int isallspace(char *line);
 void initdata();
-int freeall();
+int freeall(char **tofree);
 int checkmap(char *line);
 #endif

@@ -1,0 +1,2 @@
+strcmp+strlen : main.c.74 
+strcmp : utilsparings.c.30->32

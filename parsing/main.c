@@ -11,7 +11,7 @@ int countlines()
  line = get_next_line(data()->fd);
     if(!line)
     {
-        return (write(2,"Error\nin file\n",15),-1);
+        return (printf("Error\nin file\n"),-1);
     }
     while(line)
     {
@@ -29,7 +29,7 @@ int stepone(char *av)
     data()->fd = open(av,O_RDONLY);
     if(data()->fd == -1)
     {
-        return write(2,"Error\nin file\n",15);
+        return printf("Error\nin file\n");
     }
     data()->lines= countlines();
     close(data()->fd);
@@ -39,43 +39,63 @@ int stepone(char *av)
     {
         return 0;
     }
-    data()->map = (char **)malloc(sizeof(char *) * data()->lines);
-    if(!data()->map)
+    data()->file = (char **)malloc(sizeof(char *) * data()->lines);
+    if(!data()->file)
     {
-        return write(2,"Error\nin malloc\n",17);
+        return printf("Error\nin malloc\n");
     }
     initdata();
     
     while(i<data()->lines)
     {
-        data()->map[i] = get_next_line(data()->fd);
+        data()->file[i] = get_next_line(data()->fd);
         i++;
     }
     return 1;
 };
-int steptwo()
+void steptwo()
 {
     int i = 0;
+    int j;
     while(i < data()->lines)
     {
-       
-       if(isallspace(data()->map[i]))
-            i++;
+        if(isallspace(data()->file[i]))
+            {
+                free(data()->file[i]);
+                data()->file[i] = NULL;
+                i++;
+            }
         else
-        {
-           if(checkmap(data()->map[i]) == 0)
-                 exit(freeall());
-            i++;
-        }    
+            {
+                j = checkmap(data()->file[i]);
+                if(j == 0)
+                    exit(freeall(NULL));
+                else if (j == 1)
+                    break;
+                else{free(data()->file[i]);
+                data()->file[i] = NULL;}
+                i++;
+            }    
     }
-    return 1;
 }
 int main(int ac, char **av)
 {
     if(ac != 2 ||strcmp(av[1]+strlen(av[1])-4,".cub"))
-        return write(2,"Error\nin arguments\n",20);
+        return printf("Error\nin args\n");
     if(stepone(av[1]) == 0 )
         return 0;
-    if(steptwo() ==0)
-        return 0;
+    steptwo();
+    for(int i = 0; i < 6; i++)
+    {
+            printf("%p\n",data()->elemets[i]);
+            printf("%s\n",data()->elemets[i]);
+            free(data()->elemets[i]);
+    }
+    printf("------------------------\n");
+    for(int i = 0; i < data()->lines; i++)
+    {
+        if(data()->file[i])
+        printf("%s\n",data()->file[i]);
+    }
+    freeall(NULL);
 }
