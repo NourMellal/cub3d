@@ -31,7 +31,7 @@ void charscheck(char *element,char **split)
          strcmp(element,"C") && strcmp(element,"F"))
         {
             printf("Error\nin map2");
-            exit(freeall(split));
+            exit(freefile(split));
         }
 
 }
@@ -46,7 +46,7 @@ int checkmap(char *line)
     if(index <  6)
     {
         if(split[1] == NULL)
-            exit(freeall(split)+printf("Error\nin map1\n"));
+            exit(freefile(split)+printf("Error\nin map1\n"));
         charscheck(split[0],split);
         data()->elemets[index] = strdup(line);
     }       while(split[i])
@@ -63,7 +63,7 @@ int checkmap(char *line)
     return 5;
 }
 
-int freeall(char **tofree)
+int freefile(char **tofree)
 {
     int i;
     

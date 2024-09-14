@@ -75,7 +75,7 @@ void steptwo()
             {
                 j = checkmap(data()->file[i]);
                 if(j == 0)
-                    exit(freeall(NULL));
+                    exit(freefile(NULL));
                 else if (j == 1)
                     break;
                 free(data()->file[i]);
@@ -84,6 +84,16 @@ void steptwo()
                 i++;
     }
 }
+int freeelement()
+{
+    int i = 0;
+    while(i < 6)
+    {
+        free(data()->elemets[i]);
+        i++;
+    }
+    return 0;
+}
 int main(int ac, char **av)
 {
     if(ac != 2 ||strcmp(av[1]+strlen(av[1])-4,".cub"))
@@ -91,18 +101,17 @@ int main(int ac, char **av)
     if(stepone(av[1]) == 0 )
         return 0;
     steptwo();
+
+    charsinmap();
     for(int i = 0; i < 6; i++)
     {
             printf("%s\n",data()->elemets[i]);
-           
-            free(data()->elemets[i]);
     }
-    printf("------------------------\n");
+    printf("------------------------empty line is replaced------------------------\n");
     for(int i = 0; i < data()->lines; i++)
     {
         if(data()->file[i])
             printf("%s\n",data()->file[i]);
     }
-    charsinmap();
-    freeall(NULL);
+    return freefile(NULL)+freeelement();
 }

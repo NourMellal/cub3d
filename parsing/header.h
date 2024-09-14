@@ -12,7 +12,7 @@ struct s_parse
     int fd;
     int lines;
     char *elemets[6];
-    char **map;
+    char direction;
     int maplines;
 };
 typedef struct s_parse t_parse;
@@ -20,7 +20,8 @@ char	**ft_split(char *str);
 t_parse *data();
 int isallspace(char *line);
 void initdata();
-int freeall(char **tofree);
+int freefile(char **tofree);
+int freeelement();
 int checkmap(char *line);
 void charsinmap();
 #endif
