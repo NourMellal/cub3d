@@ -117,6 +117,64 @@ void isdupchars()
         }
         i++;
     }
+    if(c == 0)
+    {
+        printf("Error\nin map\n");
+        exit(freefile(NULL)+freeelement());
+    }
+
+}
+void getcolor()
+{
+   char **floor;
+   char **ceiling;
+    int i;
+    char **toaoitF;
+    char **toaoitC;
+    i = 0;
+    floor = ft_split(data()->elemets[4]);
+    ceiling = ft_split(data()->elemets[5]); 
+    toaoitC = ft_splitV(ceiling[1]);
+    toaoitF = ft_splitV(floor[1]);
+    while(i < 3)
+    {
+        if(!toaoitF[i] || !toaoitC[i])
+        {
+            printf("Error\nin map50\n");
+            freedouble(floor);
+            freedouble(ceiling);
+            freedouble(toaoitF);
+            freedouble(toaoitC);
+            exit(freefile(NULL)+freeelement());
+        }
+        if(strlen(toaoitF[i]) > 3 || strlen(toaoitC[i]) > 3\
+        || strlen(toaoitF[i]) < 1 || strlen(toaoitC[i]) < 1)
+        {
+            printf("Error\nin map2\n");
+            freedouble(floor);
+            freedouble(ceiling);
+            freedouble(toaoitF);
+            freedouble(toaoitC);
+            exit(freefile(NULL)+freeelement());
+        }
+        data()->mapcolor[0][i] = atoi(toaoitF[i]);
+        data()->mapcolor[1][i] = atoi(toaoitC[i]);
+        if(data()->mapcolor[0][i] > 255 || data()->mapcolor[1][i] > 255\
+        || data()->mapcolor[0][i] < 0 || data()->mapcolor[1][i] < 0)
+        {
+            printf("Error\nin map1\n");
+            freedouble(floor);
+            freedouble(ceiling);
+            freedouble(toaoitF);
+            freedouble(toaoitC);
+            exit(freefile(NULL)+freeelement());
+        }
+        i++;
+    }
+freedouble(floor);
+            freedouble(ceiling);
+            freedouble(toaoitF);
+            freedouble(toaoitC);
 }
 void charsinmap()
 {
@@ -150,4 +208,5 @@ void charsinmap()
     }
     issurrendbywalls();
     isdupchars();
+    getcolor();
 }

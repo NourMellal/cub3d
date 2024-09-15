@@ -13,10 +13,11 @@ struct s_parse
     int lines;
     char *elemets[6];
     char direction;
-    int maplines;
+    int mapcolor[2][3];
 };
 typedef struct s_parse t_parse;
 char	**ft_split(char *str);
+char	**ft_splitV(char *str);
 t_parse *data();
 int isallspace(char *line);
 void initdata();
