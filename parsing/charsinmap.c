@@ -124,6 +124,42 @@ void isdupchars()
     }
 
 }
+char *removenewline(char *line)
+{
+    int i;
+    i = 0;
+    while(line[i])
+    {
+        if(line[i] == '\n')
+        {
+            line[i] = '\0';
+            break;
+        }
+        i++;
+    }
+    return line;
+}
+void checkelements()
+{
+    int i;
+    i = 0;
+    char **split;
+    while(i < 4)
+    {
+       split = ft_split(data()->elemets[i]);
+       split[1]=removenewline(split[1]);
+       int fd = open(split[1],O_RDONLY);
+       if(fd== -1)
+       {
+              printf("Error\nin map13 %s-\n",split[1]);
+              freedouble(split);
+              exit(freefile(NULL)+freeelement());
+       }
+        data()->texture[i]=fd;
+       freedouble(split);       
+        i++;
+    }
+}
 void getcolor()
 {
    char **floor;
@@ -175,6 +211,7 @@ freedouble(floor);
             freedouble(ceiling);
             freedouble(toaoitF);
             freedouble(toaoitC);
+    checkelements();
 }
 void charsinmap()
 {

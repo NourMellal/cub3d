@@ -29,7 +29,7 @@ int stepone(char *av)
     data()->fd = open(av,O_RDONLY);
     if(data()->fd == -1)
     {
-        return printf("Error\nin file\n");
+        return (printf("Error\nin file\n"),0);
     }
     data()->lines= countlines();
     close(data()->fd);
@@ -42,7 +42,7 @@ int stepone(char *av)
     data()->file = (char **)malloc(sizeof(char *) * data()->lines);
     if(!data()->file)
     {
-        return printf("Error\nin malloc\n");
+        return (printf("Error\nin malloc\n"),0);
     }
     initdata();
     
@@ -101,15 +101,15 @@ int main(int ac, char **av)
     steptwo();
 
     charsinmap();
-    // for(int i = 0; i < 6; i++)
-    // {
-    //         printf("%s\n",data()->elemets[i]);
-    // }
-    // printf("------------------------empty line is replaced------------------------\n");
-    // for(int i = 0; i < data()->lines; i++)
-    // {
-    //     if(data()->file[i])
-    //         printf("%s\n",data()->file[i]);
-    // }
+    for(int i = 0; i < 6; i++)
+    {
+            printf("%s\n",data()->elemets[i]);
+    }
+    printf("------------------------empty line is replaced------------------------\n");
+    for(int i = 0; i < data()->lines; i++)
+    {
+        if(data()->file[i])
+            printf("%s\n",data()->file[i]);
+    }
     return freefile(NULL)+freeelement();
 }

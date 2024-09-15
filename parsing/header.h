@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 char *get_next_line(int fd);
+// map color index 0 for floor 1 for sky
 struct s_parse
 {
     char **file;
@@ -14,6 +15,7 @@ struct s_parse
     char *elemets[6];
     char direction;
     int mapcolor[2][3];
+   int texture[4];
 };
 typedef struct s_parse t_parse;
 char	**ft_split(char *str);
