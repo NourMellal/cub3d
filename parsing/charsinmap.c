@@ -142,8 +142,8 @@ void checkelements()
               freedouble(split);
               exit(freefile(NULL)+freeelement());
        }
-        data()->texture[i]=fd;
-       freedouble(split);       
+       freedouble(split);
+       close(fd);       
         i++;
     }
 }

@@ -15,7 +15,6 @@ struct s_parse
     char *elemets[6];
     char direction;
     int mapcolor[2][3];
-   int texture[4];
 };
 typedef struct s_parse t_parse;
 char	**ft_split(char *str);
@@ -27,4 +26,5 @@ int freefile(char **tofree);
 int freeelement();
 int checkmap(char *line);
 void charsinmap();
+int freetextuer();
 #endif
