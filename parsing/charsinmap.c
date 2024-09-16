@@ -21,6 +21,8 @@ char **str;
 while(j < 6)
 {
     str = ft_split(data()->elemets[j]);
+    if(str[2])
+        i+=100;
     if(str)
     {
         if(strcmp(str[0],"NO") == 0)
@@ -124,21 +126,7 @@ void isdupchars()
     }
 
 }
-char *removenewline(char *line)
-{
-    int i;
-    i = 0;
-    while(line[i])
-    {
-        if(line[i] == '\n')
-        {
-            line[i] = '\0';
-            break;
-        }
-        i++;
-    }
-    return line;
-}
+
 void checkelements()
 {
     int i;
@@ -147,7 +135,6 @@ void checkelements()
     while(i < 4)
     {
        split = ft_split(data()->elemets[i]);
-       split[1]=removenewline(split[1]);
        int fd = open(split[1],O_RDONLY);
        if(fd== -1)
        {

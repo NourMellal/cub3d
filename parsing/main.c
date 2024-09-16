@@ -109,7 +109,8 @@ int main(int ac, char **av)
     for(int i = 0; i < data()->lines; i++)
     {
         if(data()->file[i])
-            printf("%s\n",data()->file[i]);
+            printf("%s",data()->file[i]);
     }
+    puts("\n");
     return freefile(NULL)+freeelement();
 }

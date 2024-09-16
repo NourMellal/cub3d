@@ -17,11 +17,11 @@ static int word_cout(char *str)
     int wc =0;
 	while (str[i])
 	{
-		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
 			i++;
 		if (str[i])
 			wc++;
-		while (str[i] && (str[i] != ' ' && str[i] != '\t'))
+		while (str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
 			i++;
 	}
     return (wc);
@@ -40,10 +40,10 @@ char	**ft_split(char *str)
 		return (NULL);
 	while (str[i])
 	{
-		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
 			i++;
 		j = i;
-		while (str[i] && (str[i] != ' ' && str[i] != '\t'))
+		while (str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
 			i++;
 		if (i > j)
 		{
