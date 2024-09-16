@@ -1,20 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   spilts.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/16 16:43:50 by ielhasso          #+#    #+#             */
+/*   Updated: 2024/09/16 16:52:18 by ielhasso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-static char *ft_strncpy(char *s1, char *s2, int n)
+static char	*ft_strncpy(char *s1, char *s2, int n)
 {
-	int i = -1;
+	int	i;
 
+	i = -1;
 	while (++i < n && s2[i])
 		s1[i] = s2[i];
 	s1[i] = '\0';
 	return (s1);
 }
-static int word_cout(char *str)
+
+static int	word_cout(char *str)
 {
-    int i =0;
-    int wc =0;
+	int	i;
+	int	wc;
+
+	i = 0;
+	wc = 0;
 	while (str[i])
 	{
 		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
@@ -24,19 +41,20 @@ static int word_cout(char *str)
 		while (str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
 			i++;
 	}
-    return (wc);
+	return (wc);
 }
+
 char	**ft_split(char *str)
 {
-	int i = 0;
-	int j = 0;
-	int k = 0;
-	int wc = 0;
-	
+	char	**out;
 
+	int (i), (j), (k), (wc);
+	i = 0;
+	j = 0;
+	k = 0;
 	wc = word_cout(str);
-	char **out = (char **)malloc(sizeof(char *) * (wc + 1));
-    if (!out)
+	out = (char **)malloc(sizeof(char *) * (wc + 1));
+	if (!out)
 		return (NULL);
 	while (str[i])
 	{
