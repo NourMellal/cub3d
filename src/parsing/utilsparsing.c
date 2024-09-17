@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utilsparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:56 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/16 18:53:29 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/17 01:42:04 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../../include/parser.h"
 
 int	isallspace(char *line)
 {

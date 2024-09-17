@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:48 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/16 18:48:08 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/17 03:15:45 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../../include/parser.h"
+#include "../../include/raycasting.h"
 
 int	countlines(void)
 {
@@ -118,5 +119,6 @@ int	main(int ac, char **av)
 			printf("%s", data()->file[i]);
 	}
 	puts("\n");
+	help();
 	return (freefile(NULL) + freeelement());
 }

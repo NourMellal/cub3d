@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:48:30 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/16 19:10:32 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/17 03:38:23 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ char					*get_next_line(int fd);
 struct					s_parse
 {
 	char				**file;
+
+	int					pos[2];
+	
 	int					fd;
 	int					lines;
 	char				*elemets[6];
