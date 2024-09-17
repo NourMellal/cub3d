@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:48 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 03:15:45 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/17 13:25:27 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,11 @@ int	main(int ac, char **av)
 	{
 		printf("%s\n", data()->elemets[i]);
 	}
-	printf("------------------------empty line is replaced------------------------\n");
-	for (int i = 0; i < data()->lines; i++)
+	printf("------------------------------------------------\n");
+	for (int i = 0; data()->map[i];i++)
 	{
-		if (data()->file[i])
-			printf("%s", data()->file[i]);
+		puts(data()->map[i]);
 	}
-	puts("\n");
 	help();
-	return (freefile(NULL) + freeelement());
+	return (freefile(data()->map) + freeelement());
 }

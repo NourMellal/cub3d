@@ -1,4 +1,4 @@
 strcmp+strlen : main.c.74 
 strcmp : utilsparings.c.30->32
-strcmp : charsinmap.c.12
+strcmp*2 : charsinmap.c.12
 atoi+strlen : charsinmap.c.140;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   charsinmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:42 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 03:40:45 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/17 12:28:20 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,30 @@ void	isdupchars(void)
 		exit(freefile(NULL) + freeelement() + printf("Error\nin map\n"));
 }
 
+void	copymap(void)
+{
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	data()->map = malloc(sizeof(char *) * (data()->lines + 1));
+	if (!data()->map)
+		exit(freefile(NULL) + freeelement());
+	while (i < data()->lines)
+	{
+		if (data()->file[i])
+		{
+			data()->map[j] = strdup(data()->file[i]);
+			if (!data()->map[j])
+				exit(freefile(data()->map) + freeelement());
+			j++;
+		}
+		i++;
+	}
+	data()->map[j] = NULL;
+}
+
 void	checkelements(void)
 {
 	int		i;
@@ -165,6 +189,7 @@ void	checkelements(void)
 		close(fd);
 		i++;
 	}
+	copymap();
 }
 
 void	getcolor(void)

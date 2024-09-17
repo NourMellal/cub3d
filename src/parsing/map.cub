@@ -1,8 +1,8 @@
 
-NO ./Makefile
-SO ./Makefile
-WE ./Makefile
-EA ./Makefile
+NO ./a.out
+SO ./a.out
+WE ./a.out
+EA ./a.out
 F 220,100,0
 C 225,30,0
 
