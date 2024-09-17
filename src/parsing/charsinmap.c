@@ -6,7 +6,7 @@
 /*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:42 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 12:28:20 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:23:49 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ void	freedouble(char **str)
 
 int	assigmnet(char *str)
 {
-	if (strcmp(str, "NO") == 0)
+	if (ft_strcmp(str, "NO") == 0)
 		return (-3);
-	else if (strcmp(str, "SO") == 0)
+	else if (ft_strcmp(str, "SO") == 0)
 		return (-4);
-	else if (strcmp(str, "WE") == 0)
+	else if (ft_strcmp(str, "WE") == 0)
 		return (-5);
-	else if (strcmp(str, "EA") == 0)
+	else if (ft_strcmp(str, "EA") == 0)
 		return (-6);
-	else if (strcmp(str, "F") == 0)
+	else if (ft_strcmp(str, "F") == 0)
 		return (-7);
-	else if (strcmp(str, "C") == 0)
+	else if (ft_strcmp(str, "C") == 0)
 		return (-8);
 	return (0);
 }
@@ -53,7 +53,7 @@ void	sameelemet(void)
 	i = 33;
 	while (j < 6)
 	{
-		str = ft_split(data()->elemets[j]);
+		str = ft_splits(data()->elemets[j]);
 		if (str[2])
 			i += 100;
 		if (str)
@@ -158,7 +158,7 @@ void	copymap(void)
 	{
 		if (data()->file[i])
 		{
-			data()->map[j] = strdup(data()->file[i]);
+			data()->map[j] = ft_strdup(data()->file[i]);
 			if (!data()->map[j])
 				exit(freefile(data()->map) + freeelement());
 			j++;
@@ -177,7 +177,7 @@ void	checkelements(void)
 	i = 0;
 	while (i < 4)
 	{
-		split = ft_split(data()->elemets[i]);
+		split = ft_splits(data()->elemets[i]);
 		fd = open(split[1], O_RDONLY);
 		if (fd == -1)
 		{
@@ -201,13 +201,13 @@ void	getcolor(void)
 	char	**toaoitc;
 
 	i = 0;
-	floor = ft_split(data()->elemets[4]);
-	ceiling = ft_split(data()->elemets[5]);
+	floor = ft_splits(data()->elemets[4]);
+	ceiling = ft_splits(data()->elemets[5]);
 	toaoitc = ft_spitv(ceiling[1]);
 	toaoitf = ft_spitv(floor[1]);
 	while (i < 3)
 	{
-		if (!toaoitf[i] || !toaoitc[i])
+		if (!toaoitf[i] || !toaoitc[i] || toaoitc[3] || toaoitf[3])
 		{
 			printf("Error\nin map50\n");
 			freedouble(floor);
@@ -216,8 +216,8 @@ void	getcolor(void)
 			freedouble(toaoitc);
 			exit(freefile(NULL) + freeelement());
 		}
-		if (strlen(toaoitf[i]) > 3 || strlen(toaoitc[i]) > 3
-			|| strlen(toaoitf[i]) < 1 || strlen(toaoitc[i]) < 1)
+		if (ft_strlen(toaoitf[i]) > 3 || ft_strlen(toaoitc[i]) > 3
+			|| ft_strlen(toaoitf[i]) < 1 || ft_strlen(toaoitc[i]) < 1)
 		{
 			printf("Error\nin map2\n");
 			freedouble(floor);
@@ -226,8 +226,8 @@ void	getcolor(void)
 			freedouble(toaoitc);
 			exit(freefile(NULL) + freeelement());
 		}
-		data()->mapcolor[0][i] = atoi(toaoitf[i]);
-		data()->mapcolor[1][i] = atoi(toaoitc[i]);
+		data()->mapcolor[0][i] = ft_atoi(toaoitf[i]);
+		data()->mapcolor[1][i] = ft_atoi(toaoitc[i]);
 		if (data()->mapcolor[0][i] > 255 || data()->mapcolor[1][i] > 255
 			|| data()->mapcolor[0][i] < 0 || data()->mapcolor[1][i] < 0)
 		{

@@ -1,8 +1,8 @@
 
-NO ./a.out
-SO ./a.out
-WE ./a.out
-EA ./a.out
+NO ./src/parsing/forbiden_fonction.txt
+SO ./src/parsing/forbiden_fonction.txt
+WE ./src/parsing/forbiden_fonction.txt
+EA ./src/parsing/forbiden_fonction.txt
 F 220,100,0
 C 225,30,0
 

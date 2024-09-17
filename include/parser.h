@@ -6,17 +6,18 @@
 /*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:48:30 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 12:08:03 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:29:40 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#ifndef PARSER_H
+# define PARSER_H
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "../lib/libft/libft.h"
 // map color index 0 for floor 1 for sky
 char					*get_next_line(int fd);
 struct					s_parse
@@ -33,7 +34,7 @@ struct					s_parse
 };
 typedef struct s_parse	t_parse;
 
-char					**ft_split(char *str);
+char					**ft_splits(char *str);
 char					**ft_spitv(char *str);
 t_parse					*data(void);
 int						isallspace(char *line);
@@ -43,4 +44,5 @@ int						freeelement(void);
 int						checkmap(char *line);
 void					charsinmap(void);
 int						freetextuer(void);
+int						ft_strcmp(char *s1,char *s2);
 #endif

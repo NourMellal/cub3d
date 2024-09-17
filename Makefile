@@ -28,24 +28,28 @@ RAYCASTING_INC = $(INCLUDE)/raycasting.h
 RAYCASTING_SRC = $(RAYCASTING)raycasting.c
 
 RAYCASTING_OBJS = $(RAYCASTING_SRC:.c=.o)
-
+LIBFT_DIR = ./lib/libft
+LIBFT = $(LIBFT_DIR)/libft.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 MLXFLAGS = -L $(DIR_MLX) -lmlx -lXext -lX11 -lm
-CI = -I $(DIR_MLX) I $(INCLUDE)
+CI = -I $(DIR_MLX) -I $(INCLUDE)
 
-
-$(NAME) : $(PARSING_OBJS) $(RAYCASTING_OBJS)
-	$(CC) $(CI) $(CFLAGS) $(PARSING_OBJS) $(RAYCASTING_OBJS) -o $(NAME) $(MLX) $(MLXFLAGS)
+$(NAME) :  $(PARSING_OBJS) $(RAYCASTING_OBJS) $(LIBFT)
+	$(CC) $(CI) $(CFLAGS) $(PARSING_OBJS) $(RAYCASTING_OBJS) -o $(NAME) $(LIBFT) $(MLX) $(MLXFLAGS)
 
 all: $(NAME)
 
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	rm -f $(PARSING_OBJS) $(RAYCASTING_OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

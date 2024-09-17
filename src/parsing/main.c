@@ -6,7 +6,7 @@
 /*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:48 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 13:25:27 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:54:10 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	freeelement(void)
 
 int	main(int ac, char **av)
 {
-	if (ac != 2 || strcmp(av[1] + strlen(av[1]) - 4, ".cub"))
+	if (ac != 2 || ft_strcmp(av[1] + ft_strlen(av[1]) - 4, ".cub"))
 		return (printf("Error\nin args\n"));
 	if (stepone(av[1]) == 0)
 		return (0);

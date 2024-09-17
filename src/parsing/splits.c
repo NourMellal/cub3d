@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spilts.c                                           :+:      :+:    :+:   */
+/*   splits.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:50 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 01:42:04 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/17 19:31:01 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	word_cout(char *str)
 	return (wc);
 }
 
-char	**ft_split(char *str)
+char	**ft_splits(char *str)
 {
 	char	**out;
 
@@ -71,4 +71,18 @@ char	**ft_split(char *str)
 	}
 	out[k] = NULL;
 	return (out);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
 }

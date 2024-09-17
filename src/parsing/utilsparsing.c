@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilsparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:56 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 01:42:04 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/17 19:34:07 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	initdata(void)
 
 void	charscheck(char *element, char **split)
 {
-	if (strcmp(element, "NO") && strcmp(element, "SO") && strcmp(element, "WE")
-		&& strcmp(element, "EA") && strcmp(element, "C") && strcmp(element,
-			"F"))
+	if (ft_strcmp(element, "NO") && ft_strcmp(element, "SO")
+		&& ft_strcmp(element, "WE") && ft_strcmp(element, "EA")
+		&& ft_strcmp(element, "C") && ft_strcmp(element, "F"))
 	{
 		printf("Error\nin map2");
 		exit(freefile(split) + freeelement());
@@ -58,7 +58,7 @@ int	checkmap(char *line)
 	int			i;
 
 	i = 0;
-	split = ft_split(line);
+	split = ft_splits(line);
 	if (!split)
 		return (0);
 	if (index < 6)
@@ -66,7 +66,7 @@ int	checkmap(char *line)
 		if (split[1] == NULL)
 			exit(freefile(split) + printf("Error\nin map1\n") + freeelement());
 		charscheck(split[0], split);
-		data()->elemets[index] = strdup(line);
+		data()->elemets[index] = ft_strdup(line);
 	}
 	while (split[i])
 	{
