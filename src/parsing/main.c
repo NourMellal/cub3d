@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:48 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 18:54:10 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/18 01:08:20 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,11 @@ int	main(int ac, char **av)
 		printf("%s\n", data()->elemets[i]);
 	}
 	printf("------------------------------------------------\n");
+	data()->longest = get_longest_line();
+	fix_map();
 	for (int i = 0; data()->map[i];i++)
 	{
 		puts(data()->map[i]);
 	}
-	help();
 	return (freefile(data()->map) + freeelement());
 }

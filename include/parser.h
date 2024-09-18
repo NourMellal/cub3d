@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ../../include/parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:48:30 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 19:29:40 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/18 00:03:05 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char					*get_next_line(int fd);
 struct					s_parse
 {
 	char				**file;
+	size_t 				*longest;
 	char				**map;
 	int					pos[2];
-	
 	int					fd;
 	int					lines;
 	char				*elemets[6];
@@ -45,4 +45,5 @@ int						checkmap(char *line);
 void					charsinmap(void);
 int						freetextuer(void);
 int						ft_strcmp(char *s1,char *s2);
+size_t					get_longest_line(void);
 #endif

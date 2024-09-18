@@ -1,39 +1,37 @@
 .PHONY: all clean fclean re
 
 
-NAME = Cub3d
+NAME := Cub3d
 
-MLX = $(DIR_MLX)libmlx.a
-DIR_MLX = ./minilibx-linux/
+DIR_MLX := ./minilibx-linux/
+MLX := $(DIR_MLX)libmlx.a
 
-INCLUDE = ./include/
+INCLUDE := ./include/
 
-DIR_SRC = ./src/
+DIR_SRC := ./src/
 
 
-PARSING = $(DIR_SRC)parsing/
+PARSING := $(DIR_SRC)parsing/
 
-PARSING_INC = $(INCLUDE)/parsing.h
+PARSING_INC := $(INCLUDE)/parsing.h
 
-PARSING_SRC = $(PARSING)charsinmap.c $(PARSING)gnl.c $(PARSING)main.c \
+PARSING_SRC := $(PARSING)charsinmap.c $(PARSING)gnl.c $(PARSING)main.c \
 				$(PARSING)splits.c $(PARSING)split2.c $(PARSING)utilsparsing.c
 
-PARSING_OBJS = $(PARSING_SRC:.c=.o)
+PARSING_OBJS := $(PARSING_SRC:.c=.o)
 
 
-RAYCASTING = $(DIR_SRC)ray-casting/
+RAYCASTING := $(DIR_SRC)ray-casting/
+RAYCASTING_INC := $(INCLUDE)/raycasting.h
+RAYCASTING_SRC := $(RAYCASTING)raycasting.c
+RAYCASTING_OBJS := $(RAYCASTING_SRC:.c=.o)
 
-RAYCASTING_INC = $(INCLUDE)/raycasting.h
-
-RAYCASTING_SRC = $(RAYCASTING)raycasting.c
-
-RAYCASTING_OBJS = $(RAYCASTING_SRC:.c=.o)
-LIBFT_DIR = ./lib/libft
-LIBFT = $(LIBFT_DIR)/libft.a
-CC = cc
-CFLAGS = -Wall -Wextra -Werror 
-MLXFLAGS = -L $(DIR_MLX) -lmlx -lXext -lX11 -lm
-CI = -I $(DIR_MLX) -I $(INCLUDE)
+LIBFT_DIR := ./lib/libft
+LIBFT := $(LIBFT_DIR)/libft.a
+CC := cc
+CFLAGS := -Wall -Wextra -Werror 
+MLXFLAGS := -L $(DIR_MLX) -lmlx -lXext -lX11 -lm
+CI := -I $(DIR_MLX) -I $(INCLUDE)
 
 $(NAME) :  $(PARSING_OBJS) $(RAYCASTING_OBJS) $(LIBFT)
 	$(CC) $(CI) $(CFLAGS) $(PARSING_OBJS) $(RAYCASTING_OBJS) -o $(NAME) $(LIBFT) $(MLX) $(MLXFLAGS)

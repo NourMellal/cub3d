@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilsparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:56 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 19:34:07 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/18 01:06:41 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,22 @@ int	freefile(char **tofree)
 		free(tofree);
 	}
 	return (0);
+}
+
+size_t get_longest_line(void)
+{
+	int	i;
+	int	max;
+	int	len;
+
+	i = 0;
+	max = 0;
+	while (data()->file[i])
+	{
+		len = ft_strlen(data()->file[i]);
+		if (len > max)
+			max = len;
+		i++;
+	}
+	return (max);
 }
