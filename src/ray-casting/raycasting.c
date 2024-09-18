@@ -21,7 +21,7 @@ void    draw_map(t_mlx *mlx)
     {
         
         x = 0;
-        while (x < data()->map_width * SCALE)
+        while (x < (data()->map_width * SCALE)-1)
         {
             if (x % SCALE == 0 || y % SCALE == 0)
                 my_mlx_pixel_put(mlx, x, y, RED);

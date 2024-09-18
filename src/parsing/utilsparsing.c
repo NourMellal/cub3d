@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilsparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:56 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 05:44:46 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 19:46:47 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void	fix_map(void)
 		j = ft_strlen(data()->map[i]);
 		if (data()->map[i][j - 1] == '\n')
 				data()->map[i][j - 1] = '\0';
-		if ((int)i == data()->map_hight - 1)
-			j++;
+		// if ((int)i == data()->map_hight - 1)
+		// 	j++;
 		while (j < data()->longest)
 		{
 			data()->map[i] = ft_strjoin(data()->map[i], " ");
