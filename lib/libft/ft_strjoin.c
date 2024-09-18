@@ -6,10 +6,11 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 19:54:19 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 01:09:53 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 01:14:24 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {

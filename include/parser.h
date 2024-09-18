@@ -23,7 +23,7 @@ char					*get_next_line(int fd);
 struct					s_parse
 {
 	char				**file;
-	size_t 				*longest;
+	size_t 				longest;
 	char				**map;
 	int					pos[2];
 	int					fd;

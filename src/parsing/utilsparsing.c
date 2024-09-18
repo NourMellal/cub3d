@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:56 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 01:06:41 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 01:12:18 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,25 @@ int	freefile(char **tofree)
 		free(tofree);
 	}
 	return (0);
+}
+
+void	fix_map(void)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data()->map[i])
+	{
+		j = ft_strlen(data()->map[i]);
+		while (j < *data()->longest)
+		{
+			ft_strjoin(data()->map[i], " ");
+			j++;
+		}
+		data()->map[i][j] = '\0';
+		i++;
+	}
 }
 
 size_t get_longest_line(void)
