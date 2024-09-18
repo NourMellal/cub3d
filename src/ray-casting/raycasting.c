@@ -19,6 +19,7 @@ void    draw_map(t_mlx *mlx)
     y = 0;
     while (y < data()->map_hight * SCALE)
     {
+        
         x = 0;
         while (x < data()->map_width * SCALE)
         {

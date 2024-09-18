@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:48 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 05:34:03 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 13:53:25 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,6 @@ int	main(int ac, char **av)
 		printf("%s\n", data()->map[i]);
 	}
 	start_mlx();
-	// return (freefile(data()->map) + freeelement());
-	return (0);
+	return (freefile(data()->map) + freeelement());
+	// return (0);
 }

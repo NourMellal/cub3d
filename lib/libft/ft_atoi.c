@@ -6,7 +6,7 @@
 /*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:01:13 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/17 19:17:13 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:13:45 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = (str[i] - '0') + (res * 10);
+		if (res > 255)
+			return (-1);
 		i++;
 	}
 	if (str[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   charsinmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:42 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 03:24:36 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 13:37:19 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	issurrendbywalls(void)
 		i++;
 	}
 	j = 0;
-	while (data()->file[i][j])
+	while (data()->file[i] && data()->file[i][j])
 	{
 		if (data()->file[i][j] == '0' || data()->file[i][j] == 'N'
 			|| data()->file[i][j] == 'S' || data()->file[i][j] == 'E'
@@ -192,7 +192,27 @@ void	checkelements(void)
 	}
 	copymap();
 }
+int check_size(char **c,char **f)
+{
+	int i;
+	int j;
 
+	j = 0;
+	i = 0;
+	if(!c || !f)
+		return 0;
+	while(f[i])
+	{
+		i++;
+	}
+	while(c[j])
+	{
+		j++;
+	}
+	if(i != 3 || j != 3)
+		return 0;
+	return 1;
+}
 void	getcolor(void)
 {
 	char	**floor;
@@ -206,27 +226,17 @@ void	getcolor(void)
 	ceiling = ft_splits(data()->elemets[5]);
 	toaoitc = ft_spitv(ceiling[1]);
 	toaoitf = ft_spitv(floor[1]);
+	if(!check_size(toaoitf,toaoitc))
+	{
+		printf("Error\nin map51\n");
+			freedouble(floor);
+			freedouble(ceiling);
+			freedouble(toaoitf);
+			freedouble(toaoitc);
+			exit(freefile(NULL) + freeelement());
+	}
 	while (i < 3)
 	{
-		if (!toaoitf[i] || !toaoitc[i] || toaoitc[3] || toaoitf[3])
-		{
-			printf("Error\nin map50\n");
-			freedouble(floor);
-			freedouble(ceiling);
-			freedouble(toaoitf);
-			freedouble(toaoitc);
-			exit(freefile(NULL) + freeelement());
-		}
-		if (ft_strlen(toaoitf[i]) > 3 || ft_strlen(toaoitc[i]) > 3
-			|| ft_strlen(toaoitf[i]) < 1 || ft_strlen(toaoitc[i]) < 1)
-		{
-			printf("Error\nin map2\n");
-			freedouble(floor);
-			freedouble(ceiling);
-			freedouble(toaoitf);
-			freedouble(toaoitc);
-			exit(freefile(NULL) + freeelement());
-		}
 		data()->mapcolor[0][i] = ft_atoi(toaoitf[i]);
 		data()->mapcolor[1][i] = ft_atoi(toaoitc[i]);
 		if (data()->mapcolor[0][i] > 255 || data()->mapcolor[1][i] > 255
