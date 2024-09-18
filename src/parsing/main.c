@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:48 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 03:25:39 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 05:34:03 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,7 @@ int	main(int ac, char **av)
 	{
 		printf("%s\n", data()->map[i]);
 	}
-	return (freefile(data()->map) + freeelement());
+	start_mlx();
+	// return (freefile(data()->map) + freeelement());
+	return (0);
 }

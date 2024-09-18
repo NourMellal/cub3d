@@ -29,7 +29,7 @@ RAYCASTING_OBJS := $(RAYCASTING_SRC:.c=.o)
 LIBFT_DIR := ./lib/libft
 LIBFT := $(LIBFT_DIR)/libft.a
 CC := cc
-CFLAGS := -Wall -Wextra -Werror 
+CFLAGS := -Wall -Wextra -Werror -fsanitize=address -g3
 MLXFLAGS := -L $(DIR_MLX) -lmlx -lXext -lX11 -lm
 CI := -I $(DIR_MLX) -I $(INCLUDE)
 

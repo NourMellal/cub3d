@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:56 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 03:35:51 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 05:44:46 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,10 @@ void	fix_map(void)
 			j++;
 		while (j < data()->longest)
 		{
-			data()->map[i] = ft_strjoin(data()->map[i], "x");
+			data()->map[i] = ft_strjoin(data()->map[i], " ");
 			j++;
 		}
-		data()->map[i][j] = '\0';
+		data()->map[i] = ft_strjoin(data()->map[i], "\0");
 		i++;
 	}
 }
