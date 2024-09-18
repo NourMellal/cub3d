@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:48 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 01:08:20 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 03:25:39 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,11 @@ int	main(int ac, char **av)
 	}
 	printf("------------------------------------------------\n");
 	data()->longest = get_longest_line();
+	data()->map_width = data()->longest;
 	fix_map();
 	for (int i = 0; data()->map[i];i++)
 	{
-		puts(data()->map[i]);
+		printf("%s\n", data()->map[i]);
 	}
 	return (freefile(data()->map) + freeelement());
 }

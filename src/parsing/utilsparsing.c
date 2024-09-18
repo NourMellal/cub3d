@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:56 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 01:12:18 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 03:35:51 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,20 @@ int	freefile(char **tofree)
 
 void	fix_map(void)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (data()->map[i])
 	{
 		j = ft_strlen(data()->map[i]);
-		while (j < *data()->longest)
+		if (data()->map[i][j - 1] == '\n')
+				data()->map[i][j - 1] = '\0';
+		if ((int)i == data()->map_hight - 1)
+			j++;
+		while (j < data()->longest)
 		{
-			ft_strjoin(data()->map[i], " ");
+			data()->map[i] = ft_strjoin(data()->map[i], "x");
 			j++;
 		}
 		data()->map[i][j] = '\0';
@@ -134,9 +138,9 @@ size_t get_longest_line(void)
 
 	i = 0;
 	max = 0;
-	while (data()->file[i])
+	while (data()->map[i])
 	{
-		len = ft_strlen(data()->file[i]);
+		len = ft_strlen(data()->map[i]);
 		if (len > max)
 			max = len;
 		i++;

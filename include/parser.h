@@ -22,8 +22,10 @@
 char					*get_next_line(int fd);
 struct					s_parse
 {
-	char				**file;
 	size_t 				longest;
+	int					map_hight;
+	int					map_width;
+	char				**file;
 	char				**map;
 	int					pos[2];
 	int					fd;
@@ -46,4 +48,5 @@ void					charsinmap(void);
 int						freetextuer(void);
 int						ft_strcmp(char *s1,char *s2);
 size_t					get_longest_line(void);
+void					fix_map(void);
 #endif

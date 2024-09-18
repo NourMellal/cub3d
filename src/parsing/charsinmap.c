@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:42 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 00:16:57 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/18 03:24:36 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void	copymap(void)
 		if (data()->file[i])
 		{
 			data()->map[j] = ft_strdup(data()->file[i]);
+			data()->map_hight++;
 			if (!data()->map[j])
 				exit(freefile(data()->map) + freeelement());
 			j++;
