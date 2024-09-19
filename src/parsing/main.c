@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:48 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 18:52:05 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/19 04:55:47 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/parser.h"
+#include "../../include/shared.h"
 #include "../../include/raycasting.h"
 
 int	countlines(void)

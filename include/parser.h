@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ../../include/parser.h                                           :+:      :+:    :+:   */
+/*   ../../include/shared.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -20,21 +20,7 @@
 # include "../lib/libft/libft.h"
 // map color index 0 for floor 1 for sky
 char					*get_next_line(int fd);
-struct					s_parse
-{
-	size_t 				longest;
-	int					map_hight;
-	int					map_width;
-	char				**file;
-	char				**map;
-	int					pos[2];
-	int					fd;
-	int					lines;
-	char				*elemets[6];
-	char				direction;
-	int					mapcolor[2][3];
-};
-typedef struct s_parse	t_parse;
+
 
 char					**ft_splits(char *str);
 char					**ft_spitv(char *str);

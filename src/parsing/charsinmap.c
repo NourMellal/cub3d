@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   charsinmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:42 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/18 13:37:19 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/19 05:20:16 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/parser.h"
+#include "../../include/shared.h"
 
 void	freedouble(char **str)
 {
@@ -131,9 +131,8 @@ void	isdupchars(void)
 					|| data()->file[i][j] == 'E' || data()->file[i][j] == 'W')
 				{
 					c++;
-					data()->direction = data()->file[i][j];
-					data()->pos[0] = i;
-					data()->pos[1] = j;
+					data()->pos[0] = j;
+					data()->pos[1] = i;
 				}
 				j++;
 			}

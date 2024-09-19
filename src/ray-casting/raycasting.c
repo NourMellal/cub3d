@@ -1,4 +1,4 @@
-#include "../../include/raycasting.h"
+#include "../../include/shared.h"
 
 
 void    my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
@@ -9,7 +9,55 @@ void    my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
+void get_player_pos_and_dst(void)
+{
+    int i;
+    int j;
 
+    i = 0;
+    while (i < data()->map_hight)
+    {
+        j = 0;
+        while (j < data()->map_width)
+        {
+            if (data()->map[i][j] == 'N' || data()->map[i][j] == 'S' || data()->map[i][j] == 'E' || data()->map[i][j] == 'W')
+            {
+                data()->direction = data()->map[i][j];
+                data()->pos[0] = j;
+                data()->pos[1] = i;
+                return ;
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
+void    draw_player_as_square(t_mlx *mlx, int x, int y)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < SCALE / 6)
+    {
+        j = 0;
+        while (j < SCALE / 6)
+        {
+            my_mlx_pixel_put(mlx, x + i, y + j, RED);
+            j++;
+        }
+        i++;
+    }
+}
+
+void    put_player(t_mlx *mlx)
+{
+    get_player_pos_and_dst();
+    int x = (data()->pos[0] * SCALE) + SCALE / 2;
+    int y = (data()->pos[1] * SCALE) + SCALE / 2;
+    draw_player_as_square(mlx, x - 5, y - 5);
+}
 
 void    draw_map(t_mlx *mlx)
 {
@@ -47,13 +95,18 @@ void    init_mlx_struct(t_mlx *mlx)
         exit(1);
     }
 }
+void    display(t_mlx *mlx)
+{
+    draw_map(mlx);
+    put_player(mlx);
+    mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+}
 
 void    start_mlx(void)
 {
     t_mlx   mlx;
 
     init_mlx_struct(&mlx);
-    draw_map(&mlx);
-    mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+    display(&mlx);
     mlx_loop(mlx.mlx);
 }
