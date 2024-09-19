@@ -31,6 +31,9 @@ CI := -I $(DIR_MLX) -I $(INCLUDE)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/parsing
+	mkdir -p $(OBJ_DIR)/ray-casting
+
 
 $(OBJ_DIR)%.o: $(DIR_SRC)%.c
 	$(CC) $(CFLAGS) $(CI) -c $< -o $@
@@ -44,7 +47,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	rm -f $(OBJ_DIR)*.o
+	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
