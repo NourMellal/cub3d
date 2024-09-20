@@ -9,6 +9,39 @@ void    my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
+void    my_draw_direction(t_mlx *mlx, int px, int py, double angle)
+{
+    int len = 100;
+    while (len)
+    {
+        my_mlx_pixel_put(mlx, px, py, GREEN);
+        px += cos(angle);
+        py -= sin(angle);
+        len--;
+    }
+}
+
+void    draw_personal_line(t_mlx *mlx)
+{
+    int start_x = (data()->pos[0] * SCALE) + SCALE / 2;  // J = 10
+    int start_y = (data()->pos[1] * SCALE) + SCALE / 2;  // O = 15
+
+    my_draw_direction(mlx, start_x, start_y, data()->player->angle);
+}
+
+void    set_player_angle(void)
+{
+    char c = data()->direction;
+    if (c == 'N')
+        data()->player->angle = M_PI_2;
+    else if (c == 'E')
+        data()->player->angle = 0;
+    else if (c == 'W')
+        data()->player->angle = PI;
+    else
+        data()->player->angle = 3 * M_PI_2;
+}
+
 void get_player_pos_and_dst(void)
 {
     int i;
@@ -22,9 +55,11 @@ void get_player_pos_and_dst(void)
         {
             if (data()->map[i][j] == 'N' || data()->map[i][j] == 'S' || data()->map[i][j] == 'E' || data()->map[i][j] == 'W')
             {
-                data()->direction = data()->map[i][j];
                 data()->pos[0] = j;
                 data()->pos[1] = i;
+                data()->direction = data()->map[i][j];
+                set_player_angle();
+                puts("Player position found");
                 return ;
             }
             j++;
@@ -89,17 +124,26 @@ void    init_mlx_struct(t_mlx *mlx)
     mlx->win = mlx_new_window(mlx->mlx, data()->map_width * SCALE, data()->map_hight * SCALE, "Cub3D");
     mlx->img = mlx_new_image(mlx->mlx, data()->map_width * SCALE, data()->map_hight * SCALE);
     mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
-    if (!mlx->mlx || !mlx->win || !mlx->img || !mlx->addr)
-    {
-        printf(MLX_ERROR);
-        exit(1);
-    }
 }
-void    display(t_mlx *mlx)
+
+
+int   key_press(int key)
 {
+    if (key == RIGHT_KEY)
+        data()->player->angle -= 0.2;
+    else if (key == LEFT_KEY)
+        data()->player->angle += 0.2;
+    return 0;
+}
+int    display(t_mlx *mlx)
+{
+    puts("here");
     draw_map(mlx);
     put_player(mlx);
+    draw_personal_line(mlx);
+    mlx_hook(mlx->win, 2, 1L << 0, key_press, &mlx);
     mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+    return 0;
 }
 
 void    start_mlx(void)
@@ -108,5 +152,7 @@ void    start_mlx(void)
 
     init_mlx_struct(&mlx);
     display(&mlx);
+
+    // mlx_loop_hook(&mlx.mlx, display, &mlx);
     mlx_loop(mlx.mlx);
 }

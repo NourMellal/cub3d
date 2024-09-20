@@ -16,10 +16,23 @@
 #define WHITE 0xFFFFFF
 #define BLACK 0x000000
 
+#define PI 3.14159265359
+
 #define SCALE 60
 
 #define HEIGHT 600
 #define WIDTH 800
+
+
+#define LEFT_KEY 65361
+#define RIGHT_KEY 65363
+
+
+typedef struct s_player
+{
+    double  angle;
+
+} t_player;
 
 typedef struct					s_parse
 {
@@ -34,9 +47,10 @@ typedef struct					s_parse
 	char				*elemets[6];
 	char				direction;
 	int					mapcolor[2][3];
-}
-                          t_parse;
-typedef struct mlx_data
+    t_player            *player;
+}   t_parse;
+
+typedef struct s_mlx
 {
     void    *mlx;
     void    *win;
@@ -47,9 +61,7 @@ typedef struct mlx_data
     int     endian;
     int     width;
     int     height;
-    t_parse *data;
 }          t_mlx;
-
 
 
 
