@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:45 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/16 16:50:35 by ielhasso         ###   ########.fr       */
+/*   Updated: 2024/09/20 01:42:26 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_next_line(int fd)
 	if (fd < 0)
 		return (NULL);
 	i = 0;
-	str_buffer = (char *)malloc(10000000);
+	str_buffer = (char *)malloc(5000);
 	if (!str_buffer)
 		return (NULL);
 	byte = read(fd, &c, 1);
