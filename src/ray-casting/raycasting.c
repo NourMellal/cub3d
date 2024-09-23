@@ -9,57 +9,55 @@ void    my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-void    my_draw_direction(t_mlx *mlx, int px, int py, double angle)
+void    my_draw_direction(t_game *game, int px, int py, double angle)
 {
     int len = 100;
     while (len)
     {
-        my_mlx_pixel_put(mlx, px, py, GREEN);
+        if (px < 0 || px >= game->parsing->map_width * SCALE|| py < 0 || py >= game->parsing->map_hight * SCALE)
+            break;
+        my_mlx_pixel_put(game->mlx, px, py, GREEN);
         px += cos(angle);
         py -= sin(angle);
         len--;
     }
 }
 
-void    draw_personal_line(t_mlx *mlx)
+void    draw_personal_line(t_game *game)
 {
-    int start_x = (data()->pos[0] * SCALE) + SCALE / 2;  // J = 10
-    int start_y = (data()->pos[1] * SCALE) + SCALE / 2;  // O = 15
-
-    my_draw_direction(mlx, start_x, start_y, data()->player->angle);
+    my_draw_direction(game, game->player->x, game->player->y, game->player->angle);
 }
 
-void    set_player_angle(void)
+void    set_player_angle(t_game *game)
 {
-    char c = data()->direction;
-    if (c == 'N')
-        data()->player->angle = M_PI_2;
-    else if (c == 'E')
-        data()->player->angle = 0;
-    else if (c == 'W')
-        data()->player->angle = PI;
-    else
-        data()->player->angle = 3 * M_PI_2;
+    if (game->parsing->direction == 'N')
+        game->player->angle = 3 * M_PI_2;
+    else if (game->parsing->direction == 'S')
+        game->player->angle = M_PI_2;
+    else if (game->parsing->direction == 'E')
+        game->player->angle = 0;
+    else if (game->parsing->direction == 'W')
+        game->player->angle = M_PI;
 }
 
-void get_player_pos_and_dst(void)
+void get_player_pos_and_dst(t_game *game)
 {
     int i;
     int j;
 
     i = 0;
-    while (i < data()->map_hight)
+    while (i < game->parsing->map_hight)
     {
         j = 0;
-        while (j < data()->map_width)
+        while (j < game->parsing->map_width)
         {
-            if (data()->map[i][j] == 'N' || data()->map[i][j] == 'S' || data()->map[i][j] == 'E' || data()->map[i][j] == 'W')
+            if (game->parsing->map[i][j] == 'N' || game->parsing->map[i][j] == 'S' || game->parsing->map[i][j] == 'E' || game->parsing->map[i][j] == 'W')
             {
-                data()->pos[0] = j;
-                data()->pos[1] = i;
-                data()->direction = data()->map[i][j];
-                set_player_angle();
-                puts("Player position found");
+                game->player->x = (double)(j + 0.5) * SCALE;
+                game->player->y = (double)(i + 0.5) * SCALE;
+                game->parsing->direction = game->parsing->map[i][j];
+                set_player_angle(game);
+                printf("angle = %f\n", game->player->angle);
                 return ;
             }
             j++;
@@ -68,91 +66,103 @@ void get_player_pos_and_dst(void)
     }
 }
 
-void    draw_player_as_square(t_mlx *mlx, int x, int y)
+void    draw_player_as_square(t_game *game, int x, int y)
 {
     int i;
     int j;
 
     i = 0;
-    while (i < SCALE / 6)
+    while (i < 10)
     {
         j = 0;
-        while (j < SCALE / 6)
+        while (j < 10)
         {
-            my_mlx_pixel_put(mlx, x + i, y + j, RED);
+            my_mlx_pixel_put(game->mlx, x + i, y + j, RED);
             j++;
         }
         i++;
     }
 }
 
-void    put_player(t_mlx *mlx)
+void    put_player(t_game *game)
 {
-    get_player_pos_and_dst();
-    int x = (data()->pos[0] * SCALE) + SCALE / 2;
-    int y = (data()->pos[1] * SCALE) + SCALE / 2;
-    draw_player_as_square(mlx, x - 5, y - 5);
+    draw_player_as_square(game, game->player->x, game->player->y);
+    draw_personal_line(game);
 }
 
-void    draw_map(t_mlx *mlx)
+void    draw_map(t_game *game)
 {
-    int x;
-    int y;
+    int i;
+    int j;
 
-    y = 0;
-    while (y < data()->map_hight * SCALE)
+    i = 0;
+    while (i < game->parsing->map_hight * SCALE)
     {
-        
-        x = 0;
-        while (x < (data()->map_width * SCALE)-1)
+        j = 0;
+        while (j < game->parsing->map_width * SCALE)
         {
-            if (x % SCALE == 0 || y % SCALE == 0)
-                my_mlx_pixel_put(mlx, x, y, RED);
-            else if (data()->map[y / SCALE][x / SCALE] == '1')
-                my_mlx_pixel_put(mlx, x, y, BLACK);
+            if (i % SCALE == 0 || j % SCALE == 0)
+                my_mlx_pixel_put(game->mlx, j, i, RED);
+            else if (game->parsing->map[i / SCALE][j / SCALE] == '1')
+                my_mlx_pixel_put(game->mlx, j, i, BLACK);
             else
-                my_mlx_pixel_put(mlx, x, y, WHITE);
-            x++;
+                my_mlx_pixel_put(game->mlx, j, i, WHITE);
+            j++;
         }
-        y++;
+        i++;
     }
-}
-
-void    init_mlx_struct(t_mlx *mlx)
-{
-    mlx->mlx = mlx_init();
-    mlx->win = mlx_new_window(mlx->mlx, data()->map_width * SCALE, data()->map_hight * SCALE, "Cub3D");
-    mlx->img = mlx_new_image(mlx->mlx, data()->map_width * SCALE, data()->map_hight * SCALE);
-    mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
+    put_player(game);
 }
 
 
-int   key_press(int key)
+int   key_press(int key, t_game *game)
 {
+    if (key == ESC_KEY)
+        exit(0);
+    if (key == LEFT_KEY)
+    {
+        game->player->angle -= 0.9;
+    }
     if (key == RIGHT_KEY)
-        data()->player->angle -= 0.2;
-    else if (key == LEFT_KEY)
-        data()->player->angle += 0.2;
+        game->player->angle += 0.9;
+    if (key == UP_KEY)
+    {
+        game->player->x += cos(game->player->angle) * 10;
+        game->player->y -= sin(game->player->angle) * 10;
+    }
+    if (key == DOWN_KEY)
+    {
+        game->player->x -= cos(game->player->angle) * 10;
+        game->player->y += sin(game->player->angle) * 10;
+    }
     return 0;
 }
-int    display(t_mlx *mlx)
+int    display(t_game *game)
 {
-    puts("here");
-    draw_map(mlx);
-    put_player(mlx);
-    draw_personal_line(mlx);
-    mlx_hook(mlx->win, 2, 1L << 0, key_press, &mlx);
-    mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+    mlx_clear_window(game->mlx->mlx, game->mlx->win);
+    draw_map(game);
+    draw_personal_line(game);
+    mlx_put_image_to_window(game->mlx->mlx, game->mlx->win, game->mlx->img, 0, 0);
     return 0;
 }
 
+t_mlx    *init_mlx_struct(t_game *game)
+{
+    t_mlx *mlx = game->mlx;
+    mlx->mlx = mlx_init();
+    mlx->win = mlx_new_window(mlx->mlx, game->parsing->map_width * SCALE, game->parsing->map_hight * SCALE, "Raycasting");
+    mlx->img = mlx_new_image(mlx->mlx, game->parsing->map_width * SCALE, game->parsing->map_hight * SCALE);
+    mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
+    mlx->width = WIDTH;
+    mlx->height = HEIGHT;    
+    return (mlx);
+}
 void    start_mlx(void)
 {
-    t_mlx   mlx;
-
-    init_mlx_struct(&mlx);
-    display(&mlx);
-
-    // mlx_loop_hook(&mlx.mlx, display, &mlx);
-    mlx_loop(mlx.mlx);
+    t_game  game = {data(), malloc(sizeof(t_mlx)), malloc(sizeof(t_player))};
+    game.mlx = init_mlx_struct(&game);
+    get_player_pos_and_dst(&game);
+    mlx_hook(game.mlx->win, 2, 1L << 0, key_press, &game);
+    mlx_loop_hook(game.mlx->mlx, display, &game);
+    mlx_loop(game.mlx->mlx);
 }

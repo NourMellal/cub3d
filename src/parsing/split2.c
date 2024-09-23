@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:50 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/20 05:52:18 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/23 01:17:12 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@
 t_parse	*data(void)
 {
 	static struct s_parse	data;
-	static struct s_player  player;
-	// static struct s_mlx  	mlx;
 
-	data.player = &player;
-	
 	return (&data);
 }
 
