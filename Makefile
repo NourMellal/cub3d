@@ -25,7 +25,7 @@ RAYCASTING_OBJS := $(patsubst $(DIR_SRC)%, $(OBJ_DIR)%, $(RAYCASTING_OBJS))
 LIBFT_DIR := ./lib/libft
 LIBFT := $(LIBFT_DIR)/libft.a
 CC := cc
-CFLAGS := -Wall -Wextra -Werror  -g3
+CFLAGS := -Wall -Wextra -Werror   -g3
 MLXFLAGS := -L $(DIR_MLX) -lmlx -lXext -lX11 -lm
 CI := -I $(DIR_MLX) -I $(INCLUDE)
 all: $(NAME)

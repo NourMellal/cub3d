@@ -35,5 +35,6 @@ int						freetextuer(void);
 int						ft_strcmp(char *s1,char *s2);
 size_t					get_longest_line(void);
 void					fix_map(void);
+void                    issurrendbywalls(void);
 void                    freedouble(char **str);
 #endif

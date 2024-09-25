@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   charsinmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:42 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/19 05:20:16 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/25 19:20:46 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,21 @@ void	issurrendbywalls(void)
 	int	j;
 
 	i = 0;
-	while (i < data()->lines - 1)
+	while (data()->map[i])
 	{
-		if (data()->file[i])
-		{
 			j = 0;
-			while (data()->file[i][j])
+			while (data()->map[i][j])
 			{
-				if (data()->file[i][j] == '0' || data()->file[i][j] == 'N'
-					|| data()->file[i][j] == 'S' || data()->file[i][j] == 'E'
-					|| data()->file[i][j] == 'W')
+				if (data()->map[i][j] == '0' || data()->map[i][j] == 'N'
+					|| data()->map[i][j] == 'S' || data()->map[i][j] == 'E'
+					|| data()->map[i][j] == 'W')
 				{
-					if (!data()->file[i - 1] || !data()->file[i + 1]
-						|| data()->file[i][j + 1] == ' ' || data()->file[i][j
-						- 1] == ' ' || data()->file[i + 1][j] == ' '
-						|| data()->file[i - 1][j] == ' ' || data()->file[i][j
-						+ 1] == '\n' || data()->file[i][j - 1] == '\n'
-						|| data()->file[i + 1][j] == '\n' || data()->file[i
+					if (!data()->map[i - 1] || !data()->map[i + 1]
+						|| data()->map[i][j + 1] == ' ' || data()->map[i][j
+						- 1] == ' ' || data()->map[i + 1][j] == ' '
+						|| data()->map[i - 1][j] == ' ' || data()->map[i][j
+						+ 1] == '\n' || data()->map[i][j - 1] == '\n'
+						|| data()->map[i + 1][j] == '\n' || data()->map[i
 						- 1][j] == '\n')
 					{
 						printf("Error\nin map10\n");
@@ -97,21 +95,8 @@ void	issurrendbywalls(void)
 					}
 				}
 				j++;
-			}
 		}
 		i++;
-	}
-	j = 0;
-	while (data()->file[i] && data()->file[i][j])
-	{
-		if (data()->file[i][j] == '0' || data()->file[i][j] == 'N'
-			|| data()->file[i][j] == 'S' || data()->file[i][j] == 'E'
-			|| data()->file[i][j] == 'W')
-		{
-			printf("Error\nin map11\n");
-			exit(freefile(NULL) + freeelement());
-		}
-		j++;
 	}
 }
 
@@ -281,7 +266,6 @@ void	charsinmap(void)
 		}
 		i++;
 	}
-	issurrendbywalls();
 	isdupchars();
 	getcolor();
 }

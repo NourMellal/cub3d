@@ -88,7 +88,6 @@ int	mouse_win3(int x,int y, void *p)
   printf("Mouse moving in Win3, at %dx%d.\n",x,y);
 }
 
-
 int	main()
 {
   int	a;

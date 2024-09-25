@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilsparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ielhasso <ielhasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:43:56 by ielhasso          #+#    #+#             */
-/*   Updated: 2024/09/19 04:36:17 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/09/25 19:12:49 by ielhasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	fix_map(void)
 		data()->map[i] = ft_strjoin(data()->map[i], "\0");
 		i++;
 	}
+	issurrendbywalls();
 }
 
 size_t get_longest_line(void)

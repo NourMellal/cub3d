@@ -125,37 +125,31 @@ void    init_mlx_struct(t_mlx *mlx)
     mlx->img = mlx_new_image(mlx->mlx, data()->map_width * SCALE, data()->map_hight * SCALE);
     mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
 }
-
-
-int   key_press(int key)
+int freexpm(t_mlx *mlx)
 {
+    int i = -1;
+    while(++i < 4)
+        mlx_destroy_image(mlx->mlx,mlx->texture[i]);
+    mlx_destroy_image(mlx->mlx,mlx->img);
+    mlx_destroy_window(mlx->mlx,mlx->win);
+    mlx_destroy_display(mlx->mlx);
+    free(mlx->mlx);
+    return 1;
+}
+
+
+int   key_press(int key,t_mlx *mlx)
+{
+    if(key == 65307)
+        exit(freexpm(mlx)+freefile(data()->map)+freeelement());
     if (key == RIGHT_KEY)
         data()->player->angle -= 0.2;
     else if (key == LEFT_KEY)
         data()->player->angle += 0.2;
     return 0;
 }
-int    display(t_mlx *mlx)
-{
-    puts("here");
-    draw_map(mlx);
-    put_player(mlx);
-    draw_personal_line(mlx);
-    mlx_hook(mlx->win, 2, 1L << 0, key_press, &mlx);
-    mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-    return 0;
-}
-int freexpm(t_mlx *mlx)
-{
-    int i = -1;
-    while(++i < 4)
-        free(mlx->texture[i]);
-    mlx_destroy_image(mlx->mlx,mlx->img);
-    mlx_destroy_window(mlx->mlx,mlx->win);
-   mlx_destroy_display(mlx->mlx);
-   free(mlx->mlx);
-    return 1;
-}
+
+
 void xpmfile(t_mlx *mlx)
 {
     void *tmp;
@@ -168,9 +162,10 @@ void xpmfile(t_mlx *mlx)
         tmp = mlx->texture[i];
         mlx->texture[i]=mlx_xpm_file_to_image(mlx->mlx,(char *)mlx->texture[i],&x,&y);
         free(tmp);
+        printf("init %p\n",mlx->texture[i]);
         if(!mlx->texture[i])
            {
-             printf("Error\nin xpm file\n");
+             printf("Error\nin xpm file \n");
              exit(freexpm(mlx)+freefile(data()->map)+freeelement());
            }
     i++;
@@ -196,6 +191,24 @@ void check_texture(t_mlx *mlx)
     }
     xpmfile(mlx);
 }
+
+int esc(t_mlx *key)
+{
+ exit(freexpm(key)+freefile(data()->map)+freeelement());
+    return 1;
+}
+int    display(t_mlx *mlx)
+{
+    printf("in display %p\n",mlx);
+
+   draw_map(mlx);
+    put_player(mlx);
+    draw_personal_line(mlx);
+    // mlx_hook(mlx->win, 2, 1L << 0, key_press, &mlx);
+    mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+    return 0;
+}
+
 void    start_mlx(void)
 {
     t_mlx   mlx;
@@ -203,7 +216,7 @@ void    start_mlx(void)
     init_mlx_struct(&mlx);
     check_texture(&mlx);
     display(&mlx);
-
-    // mlx_loop_hook(&mlx.mlx, display, &mlx);
+    mlx_key_hook(mlx.win,key_press,&mlx);
+    mlx_hook(mlx.win, 17, 0, esc,&mlx);
     mlx_loop(mlx.mlx);
 }
