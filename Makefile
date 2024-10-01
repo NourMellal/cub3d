@@ -18,7 +18,7 @@ PARSING_OBJS := $(patsubst $(DIR_SRC)%, $(OBJ_DIR)%, $(PARSING_OBJS))
 
 RAYCASTING := $(DIR_SRC)ray-casting/
 RAYCASTING_INC := $(INCLUDE)/raycasting.h
-RAYCASTING_SRC := $(RAYCASTING)raycasting.c
+RAYCASTING_SRC := $(RAYCASTING)raycasting.c $(RAYCASTING)player.c $(RAYCASTING)draw2Dmap.c 
 RAYCASTING_OBJS := $(RAYCASTING_SRC:.c=.o)
 RAYCASTING_OBJS := $(patsubst $(DIR_SRC)%, $(OBJ_DIR)%, $(RAYCASTING_OBJS))
 
