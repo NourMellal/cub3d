@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:42:46 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/01 12:50:24 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/04 17:29:27 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void    my_draw_direction(t_game *game, int px, int py, double angle)
 {
     // Calculate the end point based on length and angle
-    int len = 50;  // Line length
+    int len = SCALE;  // Line length
     int px_end = px + (int)(cos(angle) * len);
     int py_end = py - (int)(sin(angle) * len);
 
@@ -57,7 +57,7 @@ void    my_draw_direction(t_game *game, int px, int py, double angle)
 
 void    draw_personal_line(t_game *game)
 {
-    my_draw_direction(game, game->player->x, game->player->y, game->player->angle);
+    my_draw_direction(game, game->player->x + 1, game->player->y + 1, game->player->angle);
 }
 
 void    draw_player_as_square(t_game *game, int x, int y)
@@ -66,10 +66,10 @@ void    draw_player_as_square(t_game *game, int x, int y)
     int j;
 
     i = 0;
-    while (i < 10)
+    while (i < 3)
     {
         j = 0;
-        while (j < 10)
+        while (j < 3)
         {
             my_mlx_pixel_put(game->mlx, x + i, y + j, RED);
             j++;
@@ -80,7 +80,7 @@ void    draw_player_as_square(t_game *game, int x, int y)
 
 void    put_player(t_game *game)
 {
-    draw_player_as_square(game, game->player->x - 5, game->player->y - 5);
+    draw_player_as_square(game, game->player->x, game->player->y);
     draw_personal_line(game);
 }
 
@@ -96,7 +96,7 @@ void    draw_map(t_game *game)
         while (j < game->parsing->map_width * SCALE)
         {
             if (i % SCALE == 0 || j % SCALE == 0)
-                my_mlx_pixel_put(game->mlx, j, i, GREEN);
+                my_mlx_pixel_put(game->mlx, j, i, GREY);
             else if (game->parsing->map[i / SCALE][j / SCALE] == '1')
                 my_mlx_pixel_put(game->mlx, j, i, BLACK);
             else

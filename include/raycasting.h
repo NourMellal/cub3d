@@ -6,6 +6,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "vec2.h"
 
 #define MLX_ERROR "Error\nmlx failed to initialize\n"
 
@@ -15,10 +16,15 @@
 #define BLUE 0x0000FF
 #define WHITE 0xFFFFFF
 #define BLACK 0x000000
+#define GREY 0x808080
 
 #define PI 3.14159265359
+#define FOV 60
+
+#define SPEED 3
 
 #define SCALE 60
+#define MAP_SCALE 10
 
 #define HEIGHT 600
 #define WIDTH 800
@@ -93,5 +99,6 @@ void    my_draw_direction(t_game *game, int px, int py, double angle);
 double  degree_to_radian(double degree);
 double  radian_to_degree(double radian);
 
+void mlx_delete_image(void *mlx_ptr, void *img_ptr);
 
 #endif

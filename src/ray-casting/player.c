@@ -6,11 +6,21 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:50 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/01 12:49:38 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:49:43 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
+
+double  degree_to_radian(double degree)
+{
+    return (degree * PI / 180);
+}
+
+double  radian_to_degree(double radian)
+{
+    return (radian * 180 / PI);
+}
 
 void    set_player_angle(t_game *game)
 {

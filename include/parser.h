@@ -24,7 +24,6 @@ char					*get_next_line(int fd);
 
 char					**ft_splits(char *str);
 char					**ft_spitv(char *str);
-t_parse					*data(void);
 int						isallspace(char *line);
 void					initdata(void);
 int						freefile(char **tofree);
