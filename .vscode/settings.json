@@ -15,6 +15,7 @@
         "*.tcc": "c",
         "cstdint": "c",
         "typeinfo": "c",
-        "shared.h": "c"
+        "shared.h": "c",
+        "vec2.h": "c"
     }
 }

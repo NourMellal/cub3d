@@ -57,8 +57,8 @@ typedef struct					s_parse
 typedef struct s_player
 {
     double  angle;
-    double  x;
-    double  y;
+	t_vec2	pos;
+	t_vec2 dir;
 
 } t_player;
 
@@ -95,7 +95,7 @@ t_mlx    *init_mlx_struct(t_game *game);
 void    my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void    draw_personal_line(t_game *game);
 void    start_mlx(void);
-void    my_draw_direction(t_game *game, int px, int py, double angle);
+void    my_draw_direction(t_game *game, int px, int py);
 double  degree_to_radian(double degree);
 double  radian_to_degree(double radian);
 

@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:00:24 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/03 16:05:12 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:13:22 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,18 @@ int   key_press(int key, t_game *game)
     if (key == ESC_KEY)
         exit(0);
     if (key == LEFT_KEY)
-    {
-        game->player->angle -= 0.1;
-        if (game->player->angle < 0)
-            game->player->angle = 2 * PI;    
-    }
+		vec2_rotate_vec2(&game->player->dir, -0.1);
     if (key == RIGHT_KEY)
-    {
-        game->player->angle += 0.1;
-        if (game->player->angle > 2 * PI)
-            game->player->angle = 0;
-    }
+		vec2_rotate_vec2(&game->player->dir, 0.1);
     if (key == UP_KEY)
     {
-        game->player->x += cos(game->player->angle) * SPEED;
-        game->player->y -= sin(game->player->angle) * SPEED;
+		game->player->pos.x += game->player->dir.x * SPEED;
+		game->player->pos.y += game->player->dir.y * SPEED;
     }
     if (key == DOWN_KEY)
     {
-        game->player->x -= cos(game->player->angle) * SPEED;
-        game->player->y += sin(game->player->angle) * SPEED;
+		game->player->pos.x -= game->player->dir.x * SPEED;
+		game->player->pos.y -= game->player->dir.y * SPEED;
     }
     return 0;
 }

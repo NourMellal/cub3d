@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:50 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/03 15:49:43 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:31:25 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ void get_player_pos_and_dst(t_game *game)
         {
             if (game->parsing->map[i][j] == 'N' || game->parsing->map[i][j] == 'S' || game->parsing->map[i][j] == 'E' || game->parsing->map[i][j] == 'W')
             {
-                game->player->x = (double)(j + 0.5) * SCALE;
-                game->player->y = (double)(i + 0.5) * SCALE;
+                game->player->pos.x = (double)(j + 0.5) * SCALE;
+                game->player->pos.y = (double)(i + 0.5) * SCALE;
                 game->parsing->direction = game->parsing->map[i][j];
                 set_player_angle(game);
-                printf("angle = %f\n", radian_to_degree(game->player->angle));
+				game->player->dir.x = cos(game->player->angle);
+				game->player->dir.y = sin(game->player->angle);
+				vec2_normalized(&game->player->dir);
                 return ;
             }
             j++;

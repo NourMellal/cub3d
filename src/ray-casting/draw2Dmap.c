@@ -6,18 +6,17 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:42:46 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/04 17:29:27 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:52:19 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
-
-void    my_draw_direction(t_game *game, int px, int py, double angle)
+void my_draw_direction(t_game *game, int px, int py)
 {
-    // Calculate the end point based on length and angle
-    int len = SCALE;  // Line length
-    int px_end = px + (int)(cos(angle) * len);
-    int py_end = py - (int)(sin(angle) * len);
+    // Get the direction vector from the player structure
+    int len = SCALE;  // Length of the vector (you can adjust it)
+    int px_end = px + (int)(game->player->dir.x * len);
+    int py_end = py + (int)(game->player->dir.y * len);
 
     // Bresenham's line algorithm setup
     int dx = abs(px_end - px);
@@ -33,7 +32,7 @@ void    my_draw_direction(t_game *game, int px, int py, double angle)
         if (px < 0 || px >= game->parsing->map_width * SCALE || py < 0 || py >= game->parsing->map_hight * SCALE)
             break;
 
-        // Put the pixel
+        // Put the pixel (to draw the vector)
         my_mlx_pixel_put(game->mlx, px, py, GREEN);
 
         // Check if we have reached the end point
@@ -55,9 +54,10 @@ void    my_draw_direction(t_game *game, int px, int py, double angle)
     }
 }
 
+
 void    draw_personal_line(t_game *game)
 {
-    my_draw_direction(game, game->player->x + 1, game->player->y + 1, game->player->angle);
+    my_draw_direction(game, game->player->pos.x+ 1, game->player->pos.y + 1);
 }
 
 void    draw_player_as_square(t_game *game, int x, int y)
@@ -80,7 +80,7 @@ void    draw_player_as_square(t_game *game, int x, int y)
 
 void    put_player(t_game *game)
 {
-    draw_player_as_square(game, game->player->x, game->player->y);
+    draw_player_as_square(game, game->player->pos.x, game->player->pos.y);
     draw_personal_line(game);
 }
 
