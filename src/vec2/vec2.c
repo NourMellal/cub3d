@@ -6,11 +6,21 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:08:00 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/08 18:57:36 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/09 16:06:02 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
+
+double	vec2_to_angle(t_vec2 vec2)
+{
+	double res;
+
+	res = atan2(vec2.y, vec2.x);
+	if (res < 0)
+		res += M_PI * 2;
+	return (res);
+}
 
 t_vec2 vec2_add_vec2(t_vec2 a, t_vec2 b)
 {

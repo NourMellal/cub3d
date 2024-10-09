@@ -20,14 +20,15 @@
 
 #define PI 3.14159265359
 #define FOV 60
+#define R_FOV 60 * M_PI / 180
 
 #define SPEED 3
 
-#define SCALE 60
-#define MAP_SCALE 10
+#define SCALE 30
+#define MAP_SCALE 30
 
 #define HEIGHT 600
-#define WIDTH 800
+#define WIDTH 900
 
 
 #define LEFT_KEY 65361
@@ -52,6 +53,12 @@ typedef struct					s_parse
 	char				direction;
 	int					mapcolor[2][3];
 }   t_parse;
+
+typedef struct s_ray
+{
+	t_vec2 dir;
+
+} t_ray;
 
 
 typedef struct s_player
@@ -86,19 +93,22 @@ typedef struct s_game
 t_parse	*data(void);
 void    set_player_angle(t_game *game);
 void    get_player_pos_and_dst(t_game *game);
-void    draw_player_as_square(t_game *game, int x, int y);
 void    put_player(t_game *game);
-void    draw_map(t_game *game);
-int     key_press(int key, t_game *game);
-int     display(t_game *game);
-t_mlx    *init_mlx_struct(t_game *game);
-void    my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-void    draw_personal_line(t_game *game);
-void    start_mlx(void);
-void    my_draw_direction(t_game *game, int px, int py);
 double  degree_to_radian(double degree);
 double  radian_to_degree(double radian);
 
+int     key_press(int key, t_game *game);
+t_mlx    *init_mlx_struct(t_game *game);
+void    start_mlx(void);
 void mlx_delete_image(void *mlx_ptr, void *img_ptr);
+void    my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+void	tmp_raycaster(t_game *game);
+
+int     display(t_game *game);
+void my_draw_direction(t_game *game, int px, int py, int *px_end, int *py_end, int color;);
+void    draw_map(t_game *game);
+void    draw_player_as_square(t_game *game, int x, int y);
+void    draw_personal_line(t_game *game);
+
 
 #endif
