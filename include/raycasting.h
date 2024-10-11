@@ -75,7 +75,7 @@ typedef struct s_player
     double  angle;
 	t_vec2	pos;
 	t_vec2 dir;
-
+	t_vec2 plane;
 } t_player;
 
 
@@ -118,6 +118,6 @@ void my_draw_direction(t_game *game, int px, int py, int *px_end, int *py_end, i
 void    draw_map(t_game *game);
 void    draw_player_as_square(t_game *game, int x, int y);
 void    draw_personal_line(t_game *game);
-
+void	setup_plane(t_game *game);
 
 #endif

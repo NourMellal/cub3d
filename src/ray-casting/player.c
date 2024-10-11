@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:50 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/08 18:31:25 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/11 02:45:23 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,18 @@ void    set_player_angle(t_game *game)
         game->player->angle = degree_to_radian(270);
     else if (game->parsing->direction == 'E')
 		game->player->angle = 0;
-    else if (game->parsing->direction == 'W')
-        game->player->angle = degree_to_radian(180); // M
+    else if (game->parsing->direction == 'W') {
+        game->player->angle = degree_to_radian(180);
+	}
+	game->player->dir.x = cos(game->player->angle);
+	game->player->dir.y = sin(game->player->angle);
+	vec2_normalized(&game->player->dir);
 }
 
 void get_player_pos_and_dst(t_game *game)
 {
     int i;
     int j;
-
     i = 0;
     while (i < game->parsing->map_hight)
     {
@@ -51,9 +54,7 @@ void get_player_pos_and_dst(t_game *game)
                 game->player->pos.y = (double)(i + 0.5) * SCALE;
                 game->parsing->direction = game->parsing->map[i][j];
                 set_player_angle(game);
-				game->player->dir.x = cos(game->player->angle);
-				game->player->dir.y = sin(game->player->angle);
-				vec2_normalized(&game->player->dir);
+
                 return ;
             }
             j++;

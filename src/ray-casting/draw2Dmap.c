@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:42:46 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/10 19:32:05 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/11 17:00:48 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,38 +45,24 @@ void my_draw_direction(t_game *game, int px, int py, int px_end, int py_end, int
 	}
 }
 
+
 void	tmp_raycaster(t_game *game) {
-	double ray_angle;
-	size_t number_of_rays = 10;
+	size_t number_of_rays;
+	double camera_x;
+	t_vec2 ray;
 
-	// Start raycasting from player's angle minus half the FOV
-	ray_angle = game->player->angle - (R_FOV / 2);
-
-	// Loop through each ray
+	setup_plane(game);
+	number_of_rays = 10;
 	for (size_t i = 0; i < number_of_rays; i++) {
-		// Increase the ray length to a reasonable value (e.g., 100 or more)
+
+		camera_x = 2 * (double)((double)i / (double)number_of_rays) - 1;
+		ray.x = game->player->dir.x + game->player->plane.x * camera_x;
+		ray.y = game->player->dir.y + game->player->plane.y * camera_x;
+
 		int ray_length = 100;
-
-		// Calculate the end point of the ray
-		int px_end = (int)(game->player->pos.x + cos(ray_angle) * (double)ray_length);  // X component of ray endpoint
-		int py_end = (int)(game->player->pos.y + sin(ray_angle) * (double)ray_length);  // Y component of ray endpoint
-
-		// Log the coordinates for debugging
-		// printf("ray angle: %f\n player angle %f\n", radian_to_degree(ray_angle), radian_to_degree(game->player->angle));
-
-		// Draw the ray from the player's position to the calculated endpoint
+		int px_end = (int)(game->player->pos.x + ray.x * (double)ray_length);  // X component of ray endpoint
+		int py_end = (int)(game->player->pos.y + ray.y * (double)ray_length);  // Y component of ray endpoint
 		my_draw_direction(game, game->player->pos.x, game->player->pos.y, px_end, py_end, BLACK);
-
-
-		// Increment the ray angle for the next ray
-		ray_angle += R_FOV / number_of_rays;
-
-		// Wrap the angle to ensure it's between 0 and 2π
-		if (ray_angle < 0) {
-			ray_angle += 2 * M_PI;
-		} else if (ray_angle > 2 * M_PI) {
-			ray_angle -= 2 * M_PI;
-		}
 	}
 }
 
