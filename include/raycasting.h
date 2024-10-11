@@ -60,6 +60,15 @@ typedef struct s_ray
 
 } t_ray;
 
+typedef enum e_direction
+{
+	DIR_NONE = 0,
+	DIR_UP = 1 << 1,
+	DIR_DOWN = 1 << 2,
+	DIR_LEFT = 1 << 3,
+	DIR_RIGHT = 1 << 4
+
+} t_direction;
 
 typedef struct s_player
 {

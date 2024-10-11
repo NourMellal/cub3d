@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:42:46 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/09 20:02:21 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/10 19:32:05 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void my_draw_direction(t_game *game, int px, int py, int px_end, int py_end, int
 
 void	tmp_raycaster(t_game *game) {
 	double ray_angle;
-	size_t number_of_rays = 30;
+	size_t number_of_rays = 10;
 
 	// Start raycasting from player's angle minus half the FOV
 	ray_angle = game->player->angle - (R_FOV / 2);
@@ -126,8 +126,10 @@ void    draw_map(t_game *game)
                 my_mlx_pixel_put(game->mlx, j, i, GREY);
             else if (game->parsing->map[i / SCALE][j / SCALE] == '1')
                 my_mlx_pixel_put(game->mlx, j, i, BLACK);
-            else
+            else if (game->parsing->map[i / SCALE][j / SCALE] == '0' || ft_isalpha(game->parsing->map[i / SCALE][j / SCALE]))
                 my_mlx_pixel_put(game->mlx, j, i, WHITE);
+			else
+				my_mlx_pixel_put(game->mlx, j, i, GREY);
             j++;
         }
         i++;
