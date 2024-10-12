@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:50 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/11 02:45:23 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/12 04:39:36 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void get_player_pos_and_dst(t_game *game)
         {
             if (game->parsing->map[i][j] == 'N' || game->parsing->map[i][j] == 'S' || game->parsing->map[i][j] == 'E' || game->parsing->map[i][j] == 'W')
             {
-                game->player->pos.x = (double)(j + 0.5) * SCALE;
-                game->player->pos.y = (double)(i + 0.5) * SCALE;
+                game->player->pos.x = (double)((double)(j) * (double)SCALE);
+                game->player->pos.y = (double)((double)(i) * (double)SCALE);
                 game->parsing->direction = game->parsing->map[i][j];
                 set_player_angle(game);
 

@@ -18,6 +18,7 @@
 #define BLACK 0x000000
 #define GREY 0x808080
 
+// #define INFINITY 1e30
 #define PI 3.14159265359
 #define FOV 60
 #define R_FOV 60 * M_PI / 180
@@ -60,15 +61,6 @@ typedef struct s_ray
 
 } t_ray;
 
-typedef enum e_direction
-{
-	DIR_NONE = 0,
-	DIR_UP = 1 << 1,
-	DIR_DOWN = 1 << 2,
-	DIR_LEFT = 1 << 3,
-	DIR_RIGHT = 1 << 4
-
-} t_direction;
 
 typedef struct s_player
 {
@@ -119,5 +111,7 @@ void    draw_map(t_game *game);
 void    draw_player_as_square(t_game *game, int x, int y);
 void    draw_personal_line(t_game *game);
 void	setup_plane(t_game *game);
+t_vec2	determine_first_xy_side(t_vec2 pos, int map_x, int map_y, t_vec2 delta_side, t_vec2 ray);
+t_vec2 determine_xy_steps(t_vec2 raydir);
 
 #endif
