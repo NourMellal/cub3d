@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:08:00 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/09 16:06:02 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/14 18:27:57 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ t_vec2 vec2_scale(t_vec2 a, double b)
     res.x = a.x * b;
     res.y = a.y * b;
     return (res);
+}
+
+double vec2_mag(t_vec2 vec)
+{
+	return (sqrt(vec.x * vec.x + vec.y * vec.y));
 }
 void	vec2_normalized(t_vec2 *vec)
 {

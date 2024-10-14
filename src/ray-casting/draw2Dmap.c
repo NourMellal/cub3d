@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:42:46 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/12 05:08:48 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/14 18:37:48 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,19 @@ void	tmp_raycaster(t_game *game) {
 	int hit = 0;
 	// int side = 0;
 
-	int map_x = (int)(game->player->pos.x / SCALE);
-	int map_y = (int)(game->player->pos.y / SCALE);
+	double map_x = (int)(game->player->pos.x / SCALE);
+	double map_y = (int)(game->player->pos.y / SCALE);
 
 
 	setup_plane(game);
-	number_of_rays = 10;
+	number_of_rays = 1;
 	for (size_t i = 0; i < number_of_rays; i++) {
 		printf("\n\n");
 		hit = 0;
 		camera_x = 2 * (double)((double)i / (double)number_of_rays) - 1;
 		ray.x = game->player->dir.x + game->player->plane.x * camera_x;
 		ray.y = game->player->dir.y + game->player->plane.y * camera_x;
+		my_draw_direction(game, game->player->pos.x, game->player->pos.y, game->player->pos.x + ray.x * 100, game->player->pos.y + ray.y * 100, GREEN);
 		vec2_normalized(&ray);
 		printf("ray number %zu : ray.x = %f, ray.y = %f\n",i , ray.x, ray.y);
 		if (ray.x == 0)
@@ -82,6 +83,8 @@ void	tmp_raycaster(t_game *game) {
 		printf("delta_side.y = %f\n", delta_side.y);
 		step = determine_xy_steps(ray);
 		printf("step.x = %f, step.y = %f\n", step.x, step.y);
+		//DDA
+		int side = 0;
 		side_dest = determine_first_xy_side(game->player->pos, map_x, map_y, delta_side, ray);
 		while (hit == 0)
 		{
@@ -89,29 +92,40 @@ void	tmp_raycaster(t_game *game) {
 			{
 				side_dest.x += delta_side.x;
 				map_x += step.x;
-				// side = 0;
+				side = 0;
 			}
 			else
 			{
 				side_dest.y += delta_side.y;
 				map_y += step.y;
-				// side = 1;
+				side = 1;
 			}
 			printf("side_dest.y = %f\n", side_dest.y);
 			if ((map_x >= 0 && map_x < game->parsing->map_width) && (map_y >= 0 && map_y < game->parsing->map_hight))
 			{
-				printf("At map_x = %d, map_y = %d, map value = %c\n", map_x, map_y, game->parsing->map[map_y][map_x]);
-				if (game->parsing->map[map_y][map_x] > '0')
+				if (side == 0)
+				{
+					map_y = (int)map_y;
+				}
+				else
+				{
+					map_x = (int)map_x;
+				}
+
+
+				t_vec2 vec = vec2_scale(ray, vec2_mag(vec2_sub_vec2((t_vec2){map_x * SCALE, map_y * SCALE}, game->player->pos)));
+				vec = vec2_add_vec2(game->player->pos, vec);
+				printf("At map_x = %f, map_y = %f, map value = %c\n", map_x, map_y, game->parsing->map[(int)map_y][(int)map_x]);
+				if (game->parsing->map[(int)map_y][(int)map_x] > '0')
 				{
 					puts("DRAW");
 					hit = 1;
-					draw_player_as_square(game, map_x, map_y);
-					my_draw_direction(game, game->player->pos.x, game->player->pos.y, map_x, map_y, GREEN);
+					draw_square(game, vec.x, vec.y);
 					break;
 				}
 			}
 			else {
-				printf("Ray is out of bounds: map_x = %d, map_y = %d\n", map_x, map_y);
+				printf("Ray is out of bounds: map_x = %f, map_y = %f\n", map_x, map_y);
 				hit = 1;
 			}
 		}
@@ -168,7 +182,7 @@ void    draw_personal_line(t_game *game)
 	return ;
 }
 
-void    draw_player_as_square(t_game *game, int x, int y)
+void    draw_square(t_game *game, int x, int y)
 {
     int i;
     int j;
@@ -188,7 +202,7 @@ void    draw_player_as_square(t_game *game, int x, int y)
 
 void    put_player(t_game *game)
 {
-    draw_player_as_square(game, game->player->pos.x - 5, game->player->pos.y - 5);
+    draw_square(game, game->player->pos.x - 5, game->player->pos.y - 5);
     draw_personal_line(game);
 	tmp_raycaster(game);
 }

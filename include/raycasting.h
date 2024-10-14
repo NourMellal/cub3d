@@ -108,7 +108,7 @@ void	tmp_raycaster(t_game *game);
 int     display(t_game *game);
 void my_draw_direction(t_game *game, int px, int py, int *px_end, int *py_end, int color;);
 void    draw_map(t_game *game);
-void    draw_player_as_square(t_game *game, int x, int y);
+void    draw_square(t_game *game, int x, int y);
 void    draw_personal_line(t_game *game);
 void	setup_plane(t_game *game);
 t_vec2	determine_first_xy_side(t_vec2 pos, int map_x, int map_y, t_vec2 delta_side, t_vec2 ray);

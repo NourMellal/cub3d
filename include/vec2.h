@@ -16,6 +16,7 @@ t_vec2	 vec2_mul_vec2(t_vec2 a, t_vec2 b);
 void	vec2_normalized(t_vec2 *vec);
 void	vec2_rotate_vec2(t_vec2 *vec, double angle);
 double vec2_to_angle(t_vec2 vec2);
+double vec2_mag(t_vec2 vec);
 
 #endif
 // t_vec2 point;
