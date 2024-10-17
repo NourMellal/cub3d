@@ -68,7 +68,7 @@ void	tmp_raycaster(t_game *game) {
 		camera_x = 2 * (double)((double)i / (double)number_of_rays) - 1;
 		ray.x = game->player->dir.x + game->player->plane.x * camera_x;
 		ray.y = game->player->dir.y + game->player->plane.y * camera_x;
-		my_draw_direction(game, game->player->pos.x, game->player->pos.y, game->player->pos.x + ray.x * 100, game->player->pos.y + ray.y * 100, GREEN);
+		my_draw_direction(game, game->player->pos.x, game->player->pos.y, (game->player->pos.x + (ray.x * 100)), game->player->pos.y + ray.y * 100, GREEN);
 		vec2_normalized(&ray);
 		printf("ray number %zu : ray.x = %f, ray.y = %f\n",i , ray.x, ray.y);
 		if (ray.x == 0)

@@ -31,13 +31,19 @@
 #define HEIGHT 600
 #define WIDTH 900
 
-
+#ifdef INPUT_MAC
+#define LEFT_KEY 123
+#define RIGHT_KEY 124
+#define UP_KEY 126
+#define DOWN_KEY 125
+#define ESC_KEY 53
+#else
 #define LEFT_KEY 65361
 #define RIGHT_KEY 65363
 #define UP_KEY 65362
 #define DOWN_KEY 65364
 #define ESC_KEY 65307
-
+#endif
 
 
 typedef struct					s_parse
@@ -106,7 +112,7 @@ void    my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	tmp_raycaster(t_game *game);
 
 int     display(t_game *game);
-void my_draw_direction(t_game *game, int px, int py, int *px_end, int *py_end, int color;);
+void my_draw_direction(t_game *game, int px, int py, int px_end, int py_end, int color);
 void    draw_map(t_game *game);
 void    draw_square(t_game *game, int x, int y);
 void    draw_personal_line(t_game *game);
