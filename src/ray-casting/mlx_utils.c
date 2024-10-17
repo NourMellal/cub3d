@@ -74,5 +74,6 @@ int   key_press(int key, t_game *game)
 		game->player->pos.x -= game->player->dir.x * SPEED;
 		game->player->pos.y -= game->player->dir.y * SPEED;
     }
+    game->player->plane = calculate_plane(game->player->dir);
     return 0;
 }

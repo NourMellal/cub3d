@@ -13,7 +13,7 @@ CC = cc
 NAME = cub3d
 NAME_b = miniRT_bonus
 NAME_e = miniRT_extra
-CFLAGS = -Iinclude -Ilib #ß -Wall -Wextra -Werror -O3
+CFLAGS = -Iinclude -Ilib -fsanitize=address #ß -Wall -Wextra -Werror -O3
 LDFLAGS = -Lmlx_Linux -lmlx_Linux -lXext -lX11 -lm
 
 ifeq ($(shell uname -s),Darwin)

@@ -8,6 +8,12 @@ typedef struct vec2
     double y;
 } t_vec2;
 
+typedef struct vec3
+{
+    double x;
+    double y;
+    double z;
+} t_vec3;
 
 t_vec2	vec2_add_vec2(t_vec2 a, t_vec2 b);
 t_vec2	 vec2_sub_vec2(t_vec2 a, t_vec2 b);

@@ -36,6 +36,7 @@ void    set_player_angle(t_game *game)
 	game->player->dir.x = cos(game->player->angle);
 	game->player->dir.y = sin(game->player->angle);
 	vec2_normalized(&game->player->dir);
+    game->player->plane = calculate_plane(game->player->dir);
 }
 
 void get_player_pos_and_dst(t_game *game)
@@ -54,7 +55,6 @@ void get_player_pos_and_dst(t_game *game)
                 game->player->pos.y = (double)((double)(i) * (double)SCALE);
                 game->parsing->direction = game->parsing->map[i][j];
                 set_player_angle(game);
-
                 return ;
             }
             j++;

@@ -21,6 +21,8 @@ void my_draw_direction(t_game *game, int px, int py, int px_end, int py_end, int
 	int err = dx - dy;
 	int e2;
 
+	printf("%d, %d, %d, %d\n", px, py, px_end, py_end);
+
 	// Draw the starting pixel first
 	my_mlx_pixel_put(game->mlx, px, py, color);
 
@@ -54,14 +56,23 @@ void	tmp_raycaster(t_game *game) {
 	t_vec2 step;
 	t_vec2 side_dest;
 	int hit = 0;
+	t_player*plyr = game->player;
 	// int side = 0;
 
 	double map_x = (int)(game->player->pos.x / SCALE);
 	double map_y = (int)(game->player->pos.y / SCALE);
 
+	double scale = 100;
 
-	setup_plane(game);
-	number_of_rays = 1;
+	double x_start = plyr->pos.x + (scale * plyr->dir.x);
+	double y_start = plyr->pos.y + (plyr->dir.y * scale);
+	double x_end = plyr->pos.x + (plyr->dir.x * scale) + (plyr->plane.x * scale);
+	double y_end = plyr->pos.y + (plyr->dir.y * scale) + (plyr->plane.y * scale);
+	
+	printf("   %f, %f, %f, %f\n", x_start, y_start, x_end, y_end);
+	my_draw_direction(game, x_start, y_start, x_end, y_end, BLUE);
+
+	number_of_rays = 10;
 	for (size_t i = 0; i < number_of_rays; i++) {
 		printf("\n\n");
 		hit = 0;
@@ -178,7 +189,7 @@ t_vec2	determine_first_xy_side(t_vec2 pos, int map_x, int map_y, t_vec2 delta_si
 
 void    draw_personal_line(t_game *game)
 {
-    my_draw_direction(game, game->player->pos.x - 2, game->player->pos.y + 2, game->player->pos.x + cos(game->player->angle) * 100, game->player->pos.y + sin(game->player->angle) * 100, RED);
+   my_draw_direction(game, game->player->pos.x - 2, game->player->pos.y + 2, game->player->pos.x + cos(game->player->angle) * 100, game->player->pos.y + sin(game->player->angle) * 100, RED);
 	return ;
 }
 

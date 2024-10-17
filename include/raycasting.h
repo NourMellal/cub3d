@@ -20,7 +20,7 @@
 
 // #define INFINITY 1e30
 #define PI 3.14159265359
-#define FOV 60
+#define FOV 180
 #define R_FOV 60 * M_PI / 180
 
 #define SPEED 3
@@ -119,5 +119,8 @@ void    draw_personal_line(t_game *game);
 void	setup_plane(t_game *game);
 t_vec2	determine_first_xy_side(t_vec2 pos, int map_x, int map_y, t_vec2 delta_side, t_vec2 ray);
 t_vec2 determine_xy_steps(t_vec2 raydir);
+
+t_vec2 calculate_plane(t_vec2 dir);
+
 
 #endif
