@@ -64,6 +64,9 @@ typedef struct					s_parse
 typedef struct s_ray
 {
 	t_vec2 dir;
+	t_vec2 delta_dist;
+	t_vec2 side_dist;
+	t_vec2 step;
 
 } t_ray;
 
@@ -74,6 +77,7 @@ typedef struct s_player
 	t_vec2	pos;
 	t_vec2 dir;
 	t_vec2 plane;
+	t_ray	ray;
 } t_player;
 
 
@@ -117,7 +121,7 @@ void    draw_map(t_game *game);
 void    draw_square(t_game *game, int x, int y);
 void    draw_personal_line(t_game *game);
 void	setup_plane(t_game *game);
-t_vec2	determine_first_xy_side(t_vec2 pos, int map_x, int map_y, t_vec2 delta_side, t_vec2 ray);
+t_vec2	determine_first_xy_side(t_vec2 pos, int map_x, int map_y, t_ray *ray);
 t_vec2 determine_xy_steps(t_vec2 raydir);
 
 t_vec2 calculate_plane(t_vec2 dir);

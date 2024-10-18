@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:42:46 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/14 18:37:48 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/18 02:37:18 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void my_draw_direction(t_game *game, int px, int py, int px_end, int py_end, int
 	int err = dx - dy;
 	int e2;
 
-	printf("%d, %d, %d, %d\n", px, py, px_end, py_end);
 
 	// Draw the starting pixel first
 	my_mlx_pixel_put(game->mlx, px, py, color);
@@ -51,16 +50,12 @@ void my_draw_direction(t_game *game, int px, int py, int px_end, int py_end, int
 void	tmp_raycaster(t_game *game) {
 	size_t number_of_rays;
 	double camera_x;
-	t_vec2 ray;
-	t_vec2 delta_side;
-	t_vec2 step;
-	t_vec2 side_dest;
 	int hit = 0;
+
+	t_ray	ray;
 	t_player*plyr = game->player;
 	// int side = 0;
 
-	double map_x = (int)(game->player->pos.x / SCALE);
-	double map_y = (int)(game->player->pos.y / SCALE);
 
 	double scale = 100;
 
@@ -68,121 +63,88 @@ void	tmp_raycaster(t_game *game) {
 	double y_start = plyr->pos.y + (plyr->dir.y * scale);
 	double x_end = plyr->pos.x + (plyr->dir.x * scale) + (plyr->plane.x * scale);
 	double y_end = plyr->pos.y + (plyr->dir.y * scale) + (plyr->plane.y * scale);
-	
-	printf("   %f, %f, %f, %f\n", x_start, y_start, x_end, y_end);
 	my_draw_direction(game, x_start, y_start, x_end, y_end, BLUE);
+
 
 	number_of_rays = 10;
 	for (size_t i = 0; i < number_of_rays; i++) {
-		printf("\n\n");
-		hit = 0;
-		camera_x = 2 * (double)((double)i / (double)number_of_rays) - 1;
-		ray.x = game->player->dir.x + game->player->plane.x * camera_x;
-		ray.y = game->player->dir.y + game->player->plane.y * camera_x;
-		my_draw_direction(game, game->player->pos.x, game->player->pos.y, (game->player->pos.x + (ray.x * 100)), game->player->pos.y + ray.y * 100, GREEN);
-		vec2_normalized(&ray);
-		printf("ray number %zu : ray.x = %f, ray.y = %f\n",i , ray.x, ray.y);
-		if (ray.x == 0)
-			delta_side.x = INFINITY;
-		else
-			delta_side.x = fabs(1.0 / ray.x);
+		double map_x = (int)(game->player->pos.x / SCALE);
+		double map_y = (int)(game->player->pos.y / SCALE);
 
-		if (ray.y == 0)
-			delta_side.y = INFINITY;
+		hit = 0;
+		camera_x = 2.0 * (double)((double)i / (double)number_of_rays) - 1.0;
+
+		printf("raynum = %zu, camera_x = %f\n", i, camera_x);
+
+		ray.dir.x = game->player->dir.x + game->player->plane.x * camera_x;
+		ray.dir.y = game->player->dir.y + game->player->plane.y * camera_x;
+		// my_draw_direction(game, game->player->pos.x, game->player->pos.y, (game->player->pos.x + (ray.x * 100)), game->player->pos.y + ray.y * 100, GREEN);
+		vec2_normalized(&ray.dir);
+
+		if (ray.dir.x == 0)
+			ray.delta_dist.x = INFINITY;
 		else
-			delta_side.y = fabs(1.0 / ray.y);
-		printf("delta_side.y = %f\n", delta_side.y);
-		step = determine_xy_steps(ray);
-		printf("step.x = %f, step.y = %f\n", step.x, step.y);
+			ray.delta_dist.x = fabs(1.0 / ray.dir.x);
+
+		if (ray.dir.y == 0)
+			ray.delta_dist.y = INFINITY;
+		else
+			ray.delta_dist.y = fabs(1.0 / ray.dir.y);
+
 		//DDA
 		int side = 0;
-		side_dest = determine_first_xy_side(game->player->pos, map_x, map_y, delta_side, ray);
+		ray.side_dist = determine_first_xy_side(plyr->pos, map_x, map_y, &ray);
 		while (hit == 0)
 		{
-			if (side_dest.x < side_dest.y)
+			if (ray.side_dist.x < ray.side_dist.y)
 			{
-				side_dest.x += delta_side.x;
-				map_x += step.x;
+				ray.side_dist.x += ray.delta_dist.x;
+				map_x += ray.step.x;
 				side = 0;
 			}
 			else
 			{
-				side_dest.y += delta_side.y;
-				map_y += step.y;
+				ray.side_dist.y += ray.delta_dist.y;
+				map_y += ray.step.y;
 				side = 1;
 			}
-			printf("side_dest.y = %f\n", side_dest.y);
-			if ((map_x >= 0 && map_x < game->parsing->map_width) && (map_y >= 0 && map_y < game->parsing->map_hight))
+			printf("mapx = %f, mapy = %f, map[y][x] = %c\n", map_x, map_y, game->parsing->map[(int)map_y][(int)map_x]);
+			if (game->parsing->map[(int)map_y][(int)map_x] == '1')
 			{
-				if (side == 0)
-				{
-					map_y = (int)map_y;
-				}
-				else
-				{
-					map_x = (int)map_x;
-				}
-
-
-				t_vec2 vec = vec2_scale(ray, vec2_mag(vec2_sub_vec2((t_vec2){map_x * SCALE, map_y * SCALE}, game->player->pos)));
-				vec = vec2_add_vec2(game->player->pos, vec);
-				printf("At map_x = %f, map_y = %f, map value = %c\n", map_x, map_y, game->parsing->map[(int)map_y][(int)map_x]);
-				if (game->parsing->map[(int)map_y][(int)map_x] > '0')
-				{
-					puts("DRAW");
-					hit = 1;
-					draw_square(game, vec.x, vec.y);
-					break;
-				}
-			}
-			else {
-				printf("Ray is out of bounds: map_x = %f, map_y = %f\n", map_x, map_y);
+				draw_square(game, map_x * SCALE, map_y * SCALE);
 				hit = 1;
 			}
 		}
-		// int px_end = (int)(game->player->pos.x + ray.x * (double)ray_length);  // X component of ray endpoint
-		// int py_end = (int)(game->player->pos.y + ray.y * (double)ray_length);  // Y component of ray endpoint
-		// my_draw_direction(game, game->player->pos.x, game->player->pos.y, px_end, py_end, BLACK);
 	}
 }
 
-t_vec2 determine_xy_steps(t_vec2 raydir)
-{
-	t_vec2 step;
 
-	if (raydir.x < 0)
-		step.x = -1;
-	else
-		step.x = 1;
-	if (raydir.y < 0)
-		step.y = -1;
-	else
-		step.y = 1;
-	return (step);
-}
-
-t_vec2	determine_first_xy_side(t_vec2 pos, int map_x, int map_y, t_vec2 delta_side, t_vec2 ray)
+t_vec2	determine_first_xy_side(t_vec2 pos, int map_x, int map_y, t_ray *ray)
 {
 	t_vec2 first_side;
 	double tile_posx = pos.x / (double)SCALE;
 	double tile_posy = pos.y / (double)SCALE;
 
-	printf("posx / SCALE = %f, posy / SCALE = %f\n", tile_posx, tile_posx);
-	if (ray.x < 0)
+	if (ray->dir.x < 0)
 	{
-		first_side.x = (tile_posx - map_x) * delta_side.x;
+		first_side.x = (tile_posx - map_x) * ray->delta_dist.x;
+		ray->step.x = -1;
+
 	}
 	else
 	{
-		first_side.x = (map_x + 1.0 - tile_posx) * delta_side.x;
+		first_side.x = (map_x + 1.0 - tile_posx) * ray->delta_dist.x;
+		ray->step.x = 1;
 	}
-	if (ray.y < 0)
+	if (ray->dir.y < 0)
 	{
-		first_side.y = (tile_posy - map_y) * delta_side.y;
+		first_side.y = (tile_posy - map_y) * ray->delta_dist.y;
+		ray->step.y = -1;
 	}
 	else
 	{
-		first_side.y = (map_y + 1.0 - tile_posy) * delta_side.y;
+		first_side.y = (map_y + 1.0 - tile_posy) * ray->delta_dist.y;
+		ray->step.y = 1;
 	}
 	return (first_side);
 }
