@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:42:46 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/18 02:56:54 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/18 18:13:10 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ void	tmp_raycaster(t_game *game) {
 			if (game->parsing->map[(int)map_y][(int)map_x] == '1')
 			{
 				draw_square(game, map_x * SCALE, map_y * SCALE);
+				t_vec2 target = plyr->pos;
+				target = vec2_add_vec2(target, vec2_scale(ray.dir, 200));
+				my_draw_direction(game, plyr->pos.x, plyr->pos.y, target.x, target.y, RED);
 				hit = 1;
 			}
 		}
