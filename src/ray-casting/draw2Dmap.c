@@ -6,7 +6,7 @@
 /*   By: nmellal <nmellal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:42:46 by nmellal           #+#    #+#             */
-/*   Updated: 2024/10/18 02:37:18 by nmellal          ###   ########.fr       */
+/*   Updated: 2024/10/18 02:56:54 by nmellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ void	tmp_raycaster(t_game *game) {
 
 	double scale = 100;
 
-	double x_start = plyr->pos.x + (scale * plyr->dir.x);
-	double y_start = plyr->pos.y + (plyr->dir.y * scale);
-	double x_end = plyr->pos.x + (plyr->dir.x * scale) + (plyr->plane.x * scale);
-	double y_end = plyr->pos.y + (plyr->dir.y * scale) + (plyr->plane.y * scale);
-	my_draw_direction(game, x_start, y_start, x_end, y_end, BLUE);
+	// double x_start = plyr->pos.x + (scale * plyr->dir.x);
+	// double y_start = plyr->pos.y + (plyr->dir.y * scale);
+	// double x_end = plyr->pos.x + (plyr->dir.x * scale) + (plyr->plane.x * scale);
+	// double y_end = plyr->pos.y + (plyr->dir.y * scale) + (plyr->plane.y * scale);
+	// my_draw_direction(game, x_start, y_start, x_end, y_end, BLUE);
 
 
 	number_of_rays = 10;
-	for (size_t i = 0; i < number_of_rays; i++) {
+	for (size_t i = 0; i < number_of_rays + 1; i++) {
 		double map_x = (int)(game->player->pos.x / SCALE);
 		double map_y = (int)(game->player->pos.y / SCALE);
 
@@ -78,7 +78,6 @@ void	tmp_raycaster(t_game *game) {
 
 		ray.dir.x = game->player->dir.x + game->player->plane.x * camera_x;
 		ray.dir.y = game->player->dir.y + game->player->plane.y * camera_x;
-		// my_draw_direction(game, game->player->pos.x, game->player->pos.y, (game->player->pos.x + (ray.x * 100)), game->player->pos.y + ray.y * 100, GREEN);
 		vec2_normalized(&ray.dir);
 
 		if (ray.dir.x == 0)
@@ -108,7 +107,6 @@ void	tmp_raycaster(t_game *game) {
 				map_y += ray.step.y;
 				side = 1;
 			}
-			printf("mapx = %f, mapy = %f, map[y][x] = %c\n", map_x, map_y, game->parsing->map[(int)map_y][(int)map_x]);
 			if (game->parsing->map[(int)map_y][(int)map_x] == '1')
 			{
 				draw_square(game, map_x * SCALE, map_y * SCALE);
